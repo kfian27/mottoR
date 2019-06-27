@@ -50,11 +50,11 @@ class mgudang_model extends CI_Model {
   			 return $query->result();
         }
         function get_by_id($id_gudang)
-		 {
-			if($id_gudang == null || trim($id_gudang) == "") return null;
-			$result = $this->get("id_gudang = '".$id_gudang."'");
-			return count($result) == 0?null:$result[0];
-		 }
+		{
+		if($id_gudang == null || trim($id_gudang) == "") return null;
+		$result = $this->get("id_gudang = '".$id_gudang."'");
+		return count($result) == 0?null:$result[0];
+		}
 
 		/**
 		 * @author Fian Hidayah
@@ -114,9 +114,28 @@ class mgudang_model extends CI_Model {
 			return $this->db_evin->count_all_results('gudang');
 		}
 		function get_di_gudang(){
-			$sql = "SELECT detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.st_di, produk.nm_produk, produk.stok_produk, invoice.tgl_invoice FROM detail_invoice, produk, invoice WHERE detail_invoice.id_produk = produk.id_produk AND detail_invoice.id_invoice = invoice.id_invoice AND detail_invoice.st_di = 'gudang'";
+			$sql = "SELECT detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.st_di, produk.nm_produk, produk.stok_produk, produk.id_produk, invoice.no_invoice, invoice.tgl_invoice, invoice.id_invoice FROM detail_invoice, produk, invoice WHERE detail_invoice.id_produk = produk.id_produk AND detail_invoice.id_invoice = invoice.id_invoice AND detail_invoice.st_di = 'gudang'";
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
+
+		function update_di($id_di=false)
+		{
+			$data = array();
+      		$data['st_di'] = 'kirim';
+
+			return $this->db_evin->update('detail_invoice', $data, "id_di = $id_di");
+		}
+		function cek_row_di($id_invoice){
+			$sql = "SELECT * from detail_invoice where id_invoice = '$id_invoice'";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+		function cek_row_kirim($id_invoice){
+			$sql = "SELECT * from detail_invoice where id_invoice = '$id_invoice' and st_di = 'kirim'";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
 }
 ?>

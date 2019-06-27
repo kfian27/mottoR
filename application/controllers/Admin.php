@@ -32,6 +32,9 @@ class admin extends CI_Controller {
 		$this->cek_login();
 		$this->load->model('login_model');
 		$data['j_cabang'] = $this->login_model->j_cabang();
+		$data['j_tr'] = $this->login_model->j_tr();
+		$data['j_proses'] = $this->login_model->j_proses();
+		$data['m_brg'] = $this->login_model->most_brg();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('baseadmin/home.php',$data);
 		$this->load->view('baseadmin/footer.php');

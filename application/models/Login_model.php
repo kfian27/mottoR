@@ -24,5 +24,26 @@ class login_model extends CI_Model {
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}
+	function j_tr(){
+		$sql = "SELECT COUNT(id_invoice) AS total FROM invoice WHERE DATE(tgl_invoice) = CURDATE();";
+		$query = $this->db_evin->query($sql);
+		return $query->result();
+	}
+	function j_proses(){
+		$sql = "SELECT * from (SELECT COUNT(id_invoice) as gudangnya FROM invoice WHERE st_invoice LIKE '%gudang') as a, (SELECT COUNT(id_invoice) as kirimnya FROM invoice WHERE st_invoice LIKE '%kirim') as b";
+		$query = $this->db_evin->query($sql);
+		return $query->result();
+	}
+	function most_brg(){
+		$sql = "SELECT SUM(gudang.jumlah_stok) as jumlah_stoknya, nm_produk FROM gudang, produk WHERE produk.id_produk = gudang.id_produk AND gudang.keterangan = 'Barang keluar' AND MONTH(up_gudang) = MONTH(CURDATE()) GROUP BY nm_produk ORDER BY jumlah_stoknya desc LIMIT 5";
+		$query = $this->db_evin->query($sql);
+		return $query->result();
+	}
+	function grafik($bulan){
+		$sql = "SELECT SUM(jumlah_stok) as jumlah FROM gudang WHERE keterangan = 'Barang keluar' and MONTH(up_gudang) = '$bulan'";
+		$query = $this->db_evin->query($sql);
+		return $query->result();
+	}
+
 }
 ?>

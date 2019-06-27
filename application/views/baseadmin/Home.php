@@ -1,4 +1,4 @@
-
+<?php $this->load->model('login_model'); ?>
 <div class="right_col" role="main" id="view">
   <div class="">
     <div class="row">
@@ -25,19 +25,24 @@
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
                   <div class="icon" style="color: #fbfbfb"><i class="fa fa-file-o"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php echo(rand(10,100)) ;?></div>
+                  <div class="count" style="color: #fbfbfb"><?php
+                    foreach ($j_tr as $key) {
+                      echo $key->total;
+                    }
+                  ?></div>
                   <h3 style="color: #fbfbfb">Transaksi baru</h3>
                   <p style="color: #fbfbfb">Transaksi Hari ini</p>
                 </div>
               </div>
             </a>
+            <?php foreach ($j_proses as $key): ?>
              <a href="">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-                  <div class="icon" style="color: #fbfbfb"><i class="fa fa-money"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php echo(rand(10,100)) ;?></div>
-                  <h3 style="color: #fbfbfb">Menunggu</h3>
-                  <p style="color: #fbfbfb">Pembayaran</p>
+                  <div class="icon" style="color: #fbfbfb"><i class="fa fa-institution"></i></div>
+                  <div class="count" style="color: #fbfbfb"><?php echo $key->gudangnya;?></div>
+                  <h3 style="color: #fbfbfb">Proses</h3>
+                  <p style="color: #fbfbfb">Gudang</p>
                 </div>
               </div>
             </a>
@@ -45,12 +50,13 @@
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
                   <div class="icon" style="color: #fbfbfb"><i class="fa fa-truck"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php echo(rand(10,100)) ;?></div>
-                  <h3 style="color: #fbfbfb">Menunggu</h3>
+                  <div class="count" style="color: #fbfbfb"><?php echo $key->kirimnya;?></div>
+                  <h3 style="color: #fbfbfb">Proses</h3>
                   <p style="color: #fbfbfb">Pengiriman</p>
                 </div>
               </div>
             </a>
+          <?php endforeach; ?>
           </div> 
           <div class="col-md-9 col-sm-12 col-xs-12">
             <h2>Grafik Penjualan <small>Dalam satu tahun</small></h2>
@@ -66,51 +72,17 @@
                 <div class="clearfix"></div>
               </div>
               <ul class="list-unstyled top_profiles scroll-view">
-                <li class="media event">
-                  <a class="pull-left border-aero profile_thumb">
-                    <i class="fa fa-user aero"></i>
-                  </a>
-                  <div class="media-body">
-                    <a class="title" href="#" style="font-size: 14pt">Velg</a>
-                    <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo(rand(90,100)) ;?> </strong> </p>
-                  </div>
-                </li>
+                <?php foreach ($m_brg as $key): ?>
                 <li class="media event">
                   <a class="pull-left border-green profile_thumb">
                     <i class="fa fa-user green"></i>
                   </a>
                   <div class="media-body">
-                    <a class="title" href="#" style="font-size: 14pt">Fairing</a>
-                    <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo(rand(80,90)) ;?> </strong> </p>
+                    <a class="title" href="#" style="font-size: 14pt"><?php echo $key->nm_produk;?></a>
+                    <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo $key->jumlah_stoknya;?> </strong> </p>
                   </div>
                 </li>
-                <li class="media event">
-                  <a class="pull-left border-blue profile_thumb">
-                    <i class="fa fa-user blue"></i>
-                  </a>
-                  <div class="media-body">
-                    <a class="title" href="#" style="font-size: 14pt">Lampu</a>
-                    <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo(rand(70,80)) ;?> </strong> </p>
-                  </div>
-                </li>
-                <li class="media event">
-                  <a class="pull-left border-aero profile_thumb">
-                    <i class="fa fa-user aero"></i>
-                  </a>
-                  <div class="media-body">
-                    <a class="title" href="#" style="font-size: 14pt">Cover Tank</a>
-                    <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo(rand(60,70)) ;?> </strong> </p>
-                  </div>
-                </li>
-                <li class="media event">
-                  <a class="pull-left border-green profile_thumb">
-                    <i class="fa fa-user green"></i>
-                  </a>
-                  <div class="media-body">
-                    <a class="title" href="#" style="font-size: 14pt">Rear Body</a>
-                    <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo(rand(50,60)) ;?> </strong> </p>
-                  </div>
-                </li>
+                <?php endforeach; ?>
               </ul>
             </div>
           </div>
@@ -120,6 +92,19 @@
     </div>
   </div>
 </div>
+ <?php
+    for ($b=1; $b < 13 ; $b++) { 
+      $dash_selesai = $this->login_model->grafik($b);
+      if (!$dash_selesai) {
+        $datanya[] = 0;
+      }
+      else{
+        foreach ($dash_selesai as $row) {
+          $datanya[] = (float) $row->jumlah;
+        }
+      }
+    }
+?>
 <script src="<?php echo base_url();?>assets/dash/vendors/Chart.js/dist/Chart.min.js"></script>
 <script type="text/javascript">
   var randomScalingFactor = function() {
@@ -138,7 +123,7 @@
       pointHoverBackgroundColor: "#fff",
       pointHoverBorderColor: "rgba(220,220,220,1)",
       pointBorderWidth: 3,
-      data: [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      data:  <?php echo json_encode($datanya);?>
       }]
     },
   };

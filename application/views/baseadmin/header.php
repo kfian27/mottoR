@@ -82,7 +82,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-file"></i> Laporan Penjualan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Harian</a></li>
+                      <li><a href="<?php echo base_url();?>promethee/rangking"><i class="fa fa-bar-chart"></i> Harian</a></li>
                       <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Mingguan </a></li>
                       <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Bulanan </a></li>
                       <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Tahunan  </a></li>

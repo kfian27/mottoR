@@ -105,12 +105,13 @@ class invoice extends CI_Controller {
     	$no_invoice = '';
     	$totalnya = $this->input->post('harga_invoice');
     	foreach ($data as $row) {
-    		$nomernya = substr($row->no_max, 11);
+    		$nomernya = (int) substr($row->no_max, 9, 3);
+    		$nomernya++;
     		if ($row->no_max == null || $row->no_max == ''){
     			$no_invoice = $tglnya."/001";
     		}
     		else{
-    			$no_invoice = substr($row->no_max,0,11).((int)$nomernya+1);
+    			$no_invoice = substr($row->no_max,0,9).sprintf("%03s",$nomernya);
     		}
     	}
     	if ($this->input->post('pelanggan') != '')

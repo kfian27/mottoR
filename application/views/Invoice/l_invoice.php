@@ -20,6 +20,7 @@
                       <th>Kota</th>
                       <th>Harga</th>
                       <th>Tanggal Pembelian</th>
+                      <th>Status</th>
                       <th data-priority="2">Kasir</th>
                       <th>Action</th>
                     </tr>
@@ -34,6 +35,7 @@
                       <td><?php echo $row->kota_invoice; ?></td>
                       <td><?php echo $row->harga_invoice; ?></td>
                       <td><?php echo $row->tgl_invoice; $a++; ?></td>
+                      <td><?php echo $row->st_invoice; ?></td>
                       <td><?php echo $row->id_user; ?></td>
                       <td>
                         <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-info">Detail</a>

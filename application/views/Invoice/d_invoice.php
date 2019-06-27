@@ -11,13 +11,13 @@
         </div>
         <div class="x_content">
           <div class="row" id="detail">
-            <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+            <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
               <br>
               <h2 style="text-decoration: underline; font-weight: bold; font-style: italic;">MOTO RACING</h2>
               <h2 style="text-decoration: bold;">SURABAYA</h2>
               <H2>031 2739 323</H2>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+            <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
               <table height="50px;" class="table-bordered" style="text-align: center; font-size: 12pt; margin-bottom: 20px;" cellpadding="5" cellspacing="2" width="100%">
                   <tr>
                     <td>SBY</td>
@@ -27,6 +27,7 @@
                     <td></td>
                     <td>KEPADA YTH</td>
                   </tr>
+                  <?php $nomernya = ""; ?>
                   <?php foreach ($data_invoice as $key) :?>
                     <tr>
                       <td>TOKO</td>
@@ -40,11 +41,13 @@
                       <td>KOTA</td>
                       <td><?php echo $key->kota_invoice; ?></td>
                     </tr>
+                    <?php $nomernya = $key->no_invoice; ?>
                   <?php endforeach; ?>
               </table>
             </div>
             <div class="col-sm-12 col-xs-12 col-md-12">
               <div class="table-responsive">
+                <h2 style="font-weight: bold;">No : <?php echo $nomernya;?></h2>
                 <table id="tablenya" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -74,14 +77,15 @@
                 </table>
               </div>
             </div>
-          <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+          <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
             <br>
             <h5 style="text-decoration: underline; font-weight: bold; font-style: italic;">Tanda terima</h5>
           </div>
-          <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+          <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
             <br>
             <h4 style="text-decoration: underline; font-weight: bold;">Hormat Kami</h4>
             <h5 style="font-weight: bold; font-style: italic;">Motto Racing</h5>
+            <br>
             <br>
             <br>
             <br>

@@ -40,7 +40,7 @@
 			if($harga_invoice !== false)$data['harga_invoice'] = trim($harga_invoice);
 			$data['tgl_invoice'] = now();
 			$data['id_user']= $this->session->userdata('id');
-			$data['st_invoice'] = "Prooses Gudang";
+			$data['st_invoice'] = "Proses Gudang";
 			$this->db->insert('invoice', $data);
 			return $this->db->insert_id();
 		}
@@ -130,6 +130,13 @@
 			$sql = "SELECT produk.nm_produk, produk.harga_produk, detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.total_di, invoice.no_invoice, invoice.nm_invoice, invoice.alm_invoice, invoice.kota_invoice, invoice.harga_invoice FROM produk, detail_invoice, invoice where detail_invoice.id_produk = produk.id_produk and detail_invoice.id_invoice = invoice.id_invoice and invoice.id_invoice = $nomer_invoice";
 			$query = $this->db->query($sql);
 			return $query->result();
+		}
+		function update_kirim($id_invoice=false)
+		{
+			$data = array();
+      		$data['st_invoice'] = 'Proses kirim';
+
+			return $this->db->update('invoice', $data, "id_invoice = $id_invoice");
 		}
 	}
 ?>
