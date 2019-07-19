@@ -1,4 +1,5 @@
 <?php $this->load->model('login_model'); ?>
+<?php $this->load->model('mgudang_model');?>
 <div class="right_col" role="main" id="view">
   <div class="">
     <div class="row">
@@ -57,15 +58,18 @@
               </div>
             </a>
           <?php endforeach; ?>
-          </div> 
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
           <div class="col-md-9 col-sm-12 col-xs-12">
             <h2>Grafik Penjualan <small>Dalam satu tahun</small></h2>
             <div class="clearfix"></div>
             <div class="demo-container" style="height:300px">
               <canvas id="grafik_p"></canvas>
-              </div>
+            </div>
           </div>
-          <div class="col-md-3 col-sm-12 col-xs-12">
+          <div class="col-md-3 col-sm-12 col-xs-12" style="border-left:1px solid blue;">
             <div>
               <div class="x_title">
                 <h2>Produk Terbanyak Terjual</h2>
@@ -86,6 +90,57 @@
               </ul>
             </div>
           </div>
+          <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div>
+                <div class="x_title">
+                  <h2>Prakiraan pridoritas bulan lalu</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <ul class="list-unstyled top_profiles scroll-view">
+                  <?php foreach ($prioritas_lalu as $key=>$value): ?>
+                  <li class="media event">
+                    <a class="pull-left border-green profile_thumb">
+                      <i class="fa fa-user green"></i>
+                    </a>
+                    <div class="media-body">
+                      <?php 
+                      $namanya =  $this->mgudang_model->cek_nama($key);
+                       foreach ($namanya as $row) {?>
+                      <!-- <a class="title" href="#" style="font-size: 14pt"><?php echo $key->nm_produk;?></a> -->
+                      <p style="font-size: 12pt"><strong><?php echo $row->name;}?> </strong> </p>
+                    </div>
+                  </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div>
+                <div class="x_title">
+                  <h2>Prakiraan pridoritas bulan ini</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <ul class="list-unstyled top_profiles scroll-view">
+                  <?php foreach ($prioritas_skr as $key=>$value): ?>
+                  <li class="media event">
+                    <a class="pull-left border-green profile_thumb">
+                      <i class="fa fa-user green"></i>
+                    </a>
+                    <div class="media-body">
+                      <?php 
+                      $namanya =  $this->mgudang_model->cek_nama($key);
+                       foreach ($namanya as $row) {?>
+                      <!-- <a class="title" href="#" style="font-size: 14pt"><?php echo $key->nm_produk;?></a> -->
+                      <p style="font-size: 12pt"><strong><?php echo $row->name;}?> </strong> </p>
+                    </div>
+                  </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

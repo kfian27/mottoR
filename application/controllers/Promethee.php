@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class admin extends CI_Controller {
+class promethee extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,7 +20,7 @@ class admin extends CI_Controller {
 	 */
 	 /**
      * @author Fian Hidayah
-	 * Model untuk select data untuk home
+	 * Model untuk select data untuk master
 	 */
 	 public function __construct() {
 		parent::__construct();
@@ -29,46 +29,7 @@ class admin extends CI_Controller {
 		$this->db_evin = $this->load->database('motto', TRUE);
 		$this->load->helper(array('form', 'url', 'file','download'));
     }
-	public function index()
-	{
-		$this->cek_login();
-		$this->login();
-		$this->load->model('login_model');
-		$this->load->model('mgudang_model');
-		$data['j_cabang'] = $this->login_model->j_cabang();
-		$data['j_tr'] = $this->login_model->j_tr();
-		$data['j_proses'] = $this->login_model->j_proses();
-		$data['m_brg'] = $this->login_model->most_brg();
-		$data['prioritas_lalu'] = $this->rangking("lalu");
-		$data['prioritas_skr'] = $this->rangking("skr");
-		$this->load->view('baseadmin/header.php');
-		$this->load->view('baseadmin/home.php',$data);
-		$this->load->view('baseadmin/footer.php');
-		
-	}
-	public function login(){
-		if ($this->session->userdata('name')==null){
-			$this->load->view('baseadmin/login.php');
-		}
-		else{
-			if($this->session->userdata('level')=='1' || $this->session->userdata('level')=='2'){
-				redirect(base_url("admin"));
-			}elseif ($this->session->userdata('level')=="3") {
-				redirect(base_url("gudang/list_b"));
-			}
-			elseif ($this->session->userdata('level')=="4") {
-				redirect(base_url("invoice/l_invoice"));
-			}
-			else{
-				$this->index();
-			}
-		}
-	}
-	public function cek_login(){
-		if ($this->session->userdata('name')==null){
-			redirect(base_url("admin/login"));
-		}	
-	}
+	public function index(){redirect(base_url("admin"));}
 	public function cek_harga($valuenya){
 		if($valuenya<=30000){
 			return 10;
@@ -232,6 +193,17 @@ class admin extends CI_Controller {
 		arsort($net_flow);
 		$data_net = $net_flow;
 		return $data_net;
+		// $data['rangking'] = $net_flow;
+		// $data['alternatifnya'] = $alternatives;
+		// $this->load->view('baseadmin/header.php');
+		// $this->load->view('gudang/coba_pro.php',$data);
+		// $this->load->view('baseadmin/footer.php');
+	}
+
+	public function cek_login(){
+		if ($this->session->userdata('name')==null){
+			redirect(base_url("admin/login"));
+		}	
 	}
 }
 ?>

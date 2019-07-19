@@ -91,6 +91,8 @@
     <script src="<?php echo base_url();?>assets/dash/vendors/sweetalert/sweetalert.min.js"></script>
     <!-- validator -->
     <script src="<?php echo base_url()?>assets/dash/vendors/validator/validator.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="<?php echo base_url()?>assets/dash/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- ECharts -->
     <script src="<?php echo base_url()?>assets/dash/vendors/echarts/dist/echarts.min.js"></script>
     <!-- Custom Theme Scripts -->

@@ -44,6 +44,5 @@ class login_model extends CI_Model {
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}
-
 }
 ?>

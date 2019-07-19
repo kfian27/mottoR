@@ -34,6 +34,8 @@
     <link href="<?php echo base_url();?>assets/dash/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- animate.css -->
     <link href="<?php echo base_url();?>assets/dash/vendors/animate.css/animate.min.css" rel="stylesheet">
+     <!-- jQuery custom content scroller -->
+    <link href="<?php echo base_url();?>assets/dash/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/dash/build/css/custom.min.css" rel="stylesheet">
     <!-- <script src="<?php echo base_url();?>assets/js/base.js" type="text/javascript"></script> -->
@@ -42,7 +44,7 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="<?php echo base_url();?>admin" class="site_title"><img src="<?php echo base_url();?>assets/uploads/profil/logo.png" style="width: 60px; height: 60px;"><span> Motto Racing</span></a>
@@ -67,6 +69,7 @@
             <br />
 
             <!-- sidebar menu -->
+            <?php if ($this->session->userdata('level')=="1" || $this->session->userdata('level')=="2"):?>
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
@@ -105,6 +108,28 @@
                 </ul>
               </div>
             </div>
+            <?php elseif($this->session->userdata('level')=="3"):?>
+             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>Gudang</h3>
+                <ul class="nav side-menu">
+                  <li><a href="<?php echo base_url();?>gudang/b_in"><i class="fa fa-mail-reply"></i> Barang Masuk</a></li>
+                  <li><a href="<?php echo base_url();?>gudang/b_out"><i class="fa fa-mail-forward"></i> Barang Keluar</a></li>
+                  <li><a href="<?php echo base_url();?>gudang/list_b"><i class="fa fa-list-ul"></i> Detail Barang</a></li>
+                </ul>
+              </div>
+            </div>
+             <?php elseif($this->session->userdata('level')=="4"):?>
+             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+               <h3>Invoice</h3>
+                <ul class="nav side-menu">
+                  <li><a href="<?php echo base_url();?>invoice/t_invoice"><i class="fa fa-plus"></i> Tambah Invoice </a></li>
+                  <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List Invoice</a></li>
+                </ul>
+              </div>
+            </div>
+            <?php endif; ?>
             <!-- /sidebar menu -->
              <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">

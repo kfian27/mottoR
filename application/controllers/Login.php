@@ -41,7 +41,14 @@ class login extends CI_Controller {
 				'level'=>$level,
 				'cabang'=>$cabang); 
 		$this->session->set_userdata($session_user);
-		redirect(base_url("admin"));
+			if($level=='1' || $level='2'){
+				redirect(base_url("admin"));
+			}elseif ($level=="3") {
+				redirect(base_url("gudang/list_b"));
+			}
+			elseif ($level=="4") {
+				redirect(base_url("invoice/l_invoice"));
+			}
 		}
 		else{
 			echo ("<script language='javascript'>alert('Invalid username or password');document.location='../admin'</script>");
@@ -50,7 +57,7 @@ class login extends CI_Controller {
 	function log_out(){
 		$this->Muser_model->last_sign($this->session->userdata('id'));
 		$this->session->sess_destroy();
-		redirect(base_url("admin"));
+		redirect(base_url());
 	}
 }
 ?>

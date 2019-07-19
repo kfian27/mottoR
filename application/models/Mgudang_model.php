@@ -136,6 +136,10 @@ class mgudang_model extends CI_Model {
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
-
+		function cek_nama($codenya){
+			$sql = "select * from pro_alternatives WHERE pro_alternatives.code = '$codenya'";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
 }
 ?>
