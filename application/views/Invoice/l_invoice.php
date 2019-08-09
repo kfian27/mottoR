@@ -39,7 +39,9 @@
                       <td><?php echo $row->id_user; ?></td>
                       <td>
                         <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-info">Detail</a>
-                        <a class="btn btn-default">Print</a>
+                        <?php if($row->status_bayar=="Belum lunas"):?>
+                        <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-success">Bayar</a>
+                      <?php endif; ?>
                       </td>
                   </tr>
                     <?php endforeach; ?>

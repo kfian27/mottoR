@@ -35,12 +35,12 @@ class login_model extends CI_Model {
 		return $query->result();
 	}
 	function most_brg(){
-		$sql = "SELECT SUM(gudang.jumlah_stok) as jumlah_stoknya, nm_produk FROM gudang, produk WHERE produk.id_produk = gudang.id_produk AND gudang.keterangan = 'Barang keluar' AND MONTH(up_gudang) = MONTH(CURDATE()) GROUP BY nm_produk ORDER BY jumlah_stoknya desc LIMIT 5";
+		$sql = "SELECT SUM(gudang.jumlah_stok) as jumlah_stoknya, nm_produk, ft_produk FROM gudang, produk WHERE produk.id_produk = gudang.id_produk AND gudang.keterangan = 'Barang keluar' AND MONTH(up_gudang) = MONTH(CURDATE()) GROUP BY nm_produk ORDER BY jumlah_stoknya desc LIMIT 5";
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}
 	function grafik($bulan){
-		$sql = "SELECT SUM(jumlah_stok) as jumlah FROM gudang WHERE keterangan = 'Barang keluar' and MONTH(up_gudang) = '$bulan'";
+		$sql = "SELECT SUM(qty_di) AS jumlah FROM detail_invoice, invoice WHERE detail_invoice.id_invoice = invoice.id_invoice AND MONTH (tgl_invoice) = '$bulan'";
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}

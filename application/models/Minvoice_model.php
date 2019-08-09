@@ -16,13 +16,15 @@
 		    	$this->db->select('nm_invoice');
 		    	$this->db->select('alm_invoice');
 		    	$this->db->select('kota_invoice');
+		    	$this->db->select('byr_invoice');
 		    	$this->db->select('harga_invoice');
 		    	$this->db->select('tgl_invoice');
+		    	$this->db->select('status_bayar');
 		    	$this->db->select('st_invoice');
 	    	}
             	$this->db->from('invoice');
 		}
-		function get($where = "", $order = "tgl_invoice desc", $limit=null, $offset=null, $selectcolumn = true){
+		function get($where = "", $order = "id_invoice asc", $limit=null, $offset=null, $selectcolumn = true){
   			 $this->select($selectcolumn);
   			 if($limit != null) $this->db->limit($limit, $offset);
   			 if($where != "") $this->db->where($where);
@@ -30,7 +32,7 @@
   			 $query = $this->db->get();
   			 return $query->result();
         }
-        function insert($no_invoice=false,$nm_invoice=false,$alm_invoice=false,$kota_invoice=false,$harga_invoice=false)
+        function insert($no_invoice=false,$nm_invoice=false,$alm_invoice=false,$kota_invoice=false,$byr_invoice=false,$harga_invoice=false,$status_bayar=false)
 		{
 			$data = array();
 			if($no_invoice !== false)$data['no_invoice'] = trim($no_invoice);
@@ -38,6 +40,8 @@
 			if($alm_invoice !== false)$data['alm_invoice'] = trim($alm_invoice);
 			if($kota_invoice !== false)$data['kota_invoice'] = trim($kota_invoice);
 			if($harga_invoice !== false)$data['harga_invoice'] = trim($harga_invoice);
+			if($byr_invoice !== false)$data['byr_invoice'] = trim($byr_invoice);
+			if($status_bayar !== false)$data['status_bayar'] = trim($status_bayar);
 			$data['tgl_invoice'] = now();
 			$data['id_user']= $this->session->userdata('id');
 			$data['st_invoice'] = "Proses Gudang";
@@ -127,7 +131,7 @@
 		}
 
 		function get_di_all($nomer_invoice){
-			$sql = "SELECT produk.nm_produk, produk.harga_produk, detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.total_di, invoice.no_invoice, invoice.nm_invoice, invoice.alm_invoice, invoice.kota_invoice, invoice.harga_invoice FROM produk, detail_invoice, invoice where detail_invoice.id_produk = produk.id_produk and detail_invoice.id_invoice = invoice.id_invoice and invoice.id_invoice = $nomer_invoice";
+			$sql = "SELECT produk.nm_produk, produk.harga_produk, detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.total_di, invoice.no_invoice, invoice.nm_invoice, invoice.alm_invoice, invoice.kota_invoice, invoice.harga_invoice,invoice.byr_invoice FROM produk, detail_invoice, invoice where detail_invoice.id_produk = produk.id_produk and detail_invoice.id_invoice = invoice.id_invoice and invoice.id_invoice = $nomer_invoice";
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
@@ -137,6 +141,18 @@
       		$data['st_invoice'] = 'Proses kirim';
 
 			return $this->db->update('invoice', $data, "id_invoice = $id_invoice");
+		}
+		function update_invo($id_invoice=false,$harga_invoice=false)
+		{
+			$data = array();
+      		if($harga_invoice !== false)$data['harga_invoice'] = trim($harga_invoice);
+
+			return $this->db_evin->update('invoice', $data, "id_invoice = $id_invoice");
+		}
+		function edit_data(){
+			$sql = "SELECT id_invoice, SUM(total_di) as total_harga FROM detail_invoice GROUP BY id_invoice";
+			$query = $this->db_evin->query($sql);
+			return $query->result();
 		}
 	}
 ?>

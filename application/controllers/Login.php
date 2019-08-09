@@ -23,6 +23,11 @@ class login extends CI_Controller {
 		$username = trim($this->input->post('username'));
 		$password = trim(md5($this->input->post('password')));
 		$data['status'] = $this->login_model->cek_login($username,$password);
+		$id_user = "";
+		$foto_user = "";
+		$last="";
+		$level="";
+		$cabang="";
 		if(!empty($data['status'])){
 			foreach ($data['status'] as $row){
 				$id_user = $row->id_user;
@@ -40,8 +45,9 @@ class login extends CI_Controller {
 				'foto'=>$foto_user,
 				'level'=>$level,
 				'cabang'=>$cabang); 
-		$this->session->set_userdata($session_user);
-			if($level=='1' || $level='2'){
+			$this->session->set_userdata($session_user);
+			// echo $level;
+			if($level=='1' || $level=='2'){
 				redirect(base_url("admin"));
 			}elseif ($level=="3") {
 				redirect(base_url("gudang/list_b"));
@@ -51,7 +57,7 @@ class login extends CI_Controller {
 			}
 		}
 		else{
-			echo ("<script language='javascript'>alert('Invalid username or password');document.location='../admin'</script>");
+			echo ("<script language='javascript'>alert('Invalid username or password');document.location='../'</script>");
 		}
 	}
 	function log_out(){

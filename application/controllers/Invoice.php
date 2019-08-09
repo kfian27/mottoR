@@ -116,7 +116,11 @@ class invoice extends CI_Controller {
     	}
     	if ($this->input->post('pelanggan') != '')
     	{
-    		$insert_id = $this->minvoice_model->insert($no_invoice, $this->input->post('nm_plg'),$this->input->post('alm_plg'),$this->input->post('kota_plg'),$totalnya);
+    		$status_bayar = "Lunas";
+    		if ($this->input->post('bayar')<$totalnya) {
+    			$status_bayar = "Belum lunas";
+    		}
+    		$insert_id = $this->minvoice_model->insert($no_invoice, $this->input->post('nm_plg'),$this->input->post('alm_plg'),$this->input->post('kota_plg'),$this->input->post('bayar'),$totalnya,$status_bayar);
     	}
     	$data = $this->minvoice_model->get_tmp_all();
     	foreach ($data as $row) 

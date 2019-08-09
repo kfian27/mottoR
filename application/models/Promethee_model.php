@@ -29,12 +29,12 @@ class promethee_model extends CI_Model {
 		return $query->result();
 	}
 	function promethee_get_data_lalu(){
-		$sql = "SELECT produk.nm_produk, sum(jumlah_stok) as terjual, produk.stok_produk, produk.harga_produk from gudang, produk where gudang.id_produk = produk.id_produk AND MONTH(up_gudang) = MONTH(NOW())-1 and keterangan like '%keluar' GROUP BY nm_produk";
+		$sql = "SELECT produk.nm_produk, qty_di, produk.stok_produk, produk.harga_produk FROM detail_invoice, produk, invoice WHERE detail_invoice.id_produk = produk.id_produk AND invoice.id_invoice = detail_invoice.id_invoice AND MONTH (tgl_invoice) = MONTH (NOW())-1 GROUP BY nm_produk";
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}
 	function promethee_get_data(){
-		$sql = "SELECT produk.nm_produk, sum(jumlah_stok) as terjual, produk.stok_produk, produk.harga_produk from gudang, produk where gudang.id_produk = produk.id_produk AND MONTH(up_gudang) = MONTH(NOW()) and keterangan like '%keluar' GROUP BY nm_produk";
+		$sql = "SELECT produk.nm_produk, qty_di, produk.stok_produk, produk.harga_produk FROM detail_invoice, produk, invoice WHERE detail_invoice.id_produk = produk.id_produk AND invoice.id_invoice = detail_invoice.id_invoice AND MONTH (tgl_invoice) = MONTH (NOW()) GROUP BY nm_produk";
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}
@@ -61,7 +61,7 @@ class promethee_model extends CI_Model {
 		$data = array();
 		if($id_alternative !== false)$data['id_alternative'] = trim($id_alternative);
 		if($id_sub_criteria !== false)$data['id_sub_criteria'] = trim($id_sub_criteria);
-		if($value !== false)$data['value'] = trim($value);
+		if($value !== false)$data['value'] = $value;
 		return $this->db_evin->insert('pro_evaluations', $data);
 	}
 }

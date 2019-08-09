@@ -2,75 +2,70 @@
 <?php $this->load->model('mgudang_model');?>
 <div class="right_col" role="main" id="view">
   <div class="">
+    <div class="row top_tiles">
+      <a href="<?php echo base_url();?>master/cabang">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-building"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php
+              foreach ($j_cabang as $key) {
+                echo $key->jumlah;
+              }
+            ?></div>
+            <h3 style="color: #fbfbfb">Cabang</h3>
+            <p style="color: #fbfbfb">Total Cabang</p>
+          </div>
+        </div>
+      </a>
+      <a href="">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-file-o"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php
+              foreach ($j_tr as $key) {
+                echo $key->total;
+              }
+            ?></div>
+            <h3 style="color: #fbfbfb">Transaksi baru</h3>
+            <p style="color: #fbfbfb">Transaksi Hari ini</p>
+          </div>
+        </div>
+      </a>
+    <?php foreach ($j_proses as $key): ?>
+      <a href="">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-institution"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php echo $key->gudangnya;?></div>
+            <h3 style="color: #fbfbfb">Proses</h3>
+            <p style="color: #fbfbfb">Gudang</p>
+          </div>
+        </div>
+      </a>
+      <a href="">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-truck"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php echo $key->kirimnya;?></div>
+            <h3 style="color: #fbfbfb">Proses</h3>
+            <p style="color: #fbfbfb">Pengiriman</p>
+          </div>
+        </div>
+      </a>
+      <?php endforeach; ?>
+    </div>
     <div class="row">
-      <div class="clearfix"></div> 
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_content">
-            <div class="row top_tiles">
-             <a href="">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-                  <div class="icon" style="color: #fbfbfb"><i class="fa fa-building"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php
-                    foreach ($j_cabang as $key) {
-                      echo $key->jumlah;
-                    }
-                  ?></div>
-                  <h3 style="color: #fbfbfb">Cabang</h3>
-                  <p style="color: #fbfbfb">Total Cabang</p>
-                </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+              <h2>Grafik Penjualan <small>Dalam satu tahun</small></h2>
+              <div class="clearfix"></div>
+              <div class="demo-container" style="height:300px">
+                <canvas id="grafik_p"></canvas>
               </div>
-            </a>
-             <a href="">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-                  <div class="icon" style="color: #fbfbfb"><i class="fa fa-file-o"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php
-                    foreach ($j_tr as $key) {
-                      echo $key->total;
-                    }
-                  ?></div>
-                  <h3 style="color: #fbfbfb">Transaksi baru</h3>
-                  <p style="color: #fbfbfb">Transaksi Hari ini</p>
-                </div>
-              </div>
-            </a>
-            <?php foreach ($j_proses as $key): ?>
-             <a href="">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-                  <div class="icon" style="color: #fbfbfb"><i class="fa fa-institution"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php echo $key->gudangnya;?></div>
-                  <h3 style="color: #fbfbfb">Proses</h3>
-                  <p style="color: #fbfbfb">Gudang</p>
-                </div>
-              </div>
-            </a>
-            <a href="">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-                  <div class="icon" style="color: #fbfbfb"><i class="fa fa-truck"></i></div>
-                  <div class="count" style="color: #fbfbfb"><?php echo $key->kirimnya;?></div>
-                  <h3 style="color: #fbfbfb">Proses</h3>
-                  <p style="color: #fbfbfb">Pengiriman</p>
-                </div>
-              </div>
-            </a>
-          <?php endforeach; ?>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-          <div class="col-md-9 col-sm-12 col-xs-12">
-            <h2>Grafik Penjualan <small>Dalam satu tahun</small></h2>
-            <div class="clearfix"></div>
-            <div class="demo-container" style="height:300px">
-              <canvas id="grafik_p"></canvas>
             </div>
-          </div>
-          <div class="col-md-3 col-sm-12 col-xs-12" style="border-left:1px solid blue;">
-            <div>
+            <div class="col-md-3 col-sm-12 col-xs-12" style="border-left:1px solid blue;">
               <div class="x_title">
                 <h2>Produk Terbanyak Terjual</h2>
                 <div class="clearfix"></div>
@@ -78,9 +73,9 @@
               <ul class="list-unstyled top_profiles scroll-view">
                 <?php foreach ($m_brg as $key): ?>
                 <li class="media event">
-                  <a class="pull-left border-green profile_thumb">
-                    <i class="fa fa-user green"></i>
-                  </a>
+                  <div class="profile_pic">
+                    <img src="<?php echo base_url();?>assets/uploads/produk/<?php echo $key->ft_produk; ?>" alt="..." class="img-circle profile_img">
+                  </div>
                   <div class="media-body">
                     <a class="title" href="#" style="font-size: 14pt"><?php echo $key->nm_produk;?></a>
                     <p style="font-size: 12pt">Terjual sebanyak <strong><?php echo $key->jumlah_stoknya;?> </strong> </p>
@@ -90,56 +85,57 @@
               </ul>
             </div>
           </div>
-          <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_content" style="height: 450px;">
             <div class="col-md-6 col-sm-12 col-xs-12">
-              <div>
-                <div class="x_title">
-                  <h2>Prakiraan pridoritas bulan lalu</h2>
-                  <div class="clearfix"></div>
-                </div>
-                <ul class="list-unstyled top_profiles scroll-view">
-                  <?php foreach ($prioritas_lalu as $key=>$value): ?>
-                  <li class="media event">
-                    <a class="pull-left border-green profile_thumb">
-                      <i class="fa fa-user green"></i>
-                    </a>
-                    <div class="media-body">
-                      <?php 
-                      $namanya =  $this->mgudang_model->cek_nama($key);
-                       foreach ($namanya as $row) {?>
-                      <!-- <a class="title" href="#" style="font-size: 14pt"><?php echo $key->nm_produk;?></a> -->
-                      <p style="font-size: 12pt"><strong><?php echo $row->name;}?> </strong> </p>
-                    </div>
-                  </li>
-                  <?php endforeach; ?>
-                </ul>
+              <div class="x_title">
+                <h2>Prakiraan pridoritas bulan lalu</h2>
+                <div class="clearfix"></div>
               </div>
+              <ul class="list-unstyled top_profiles scroll-view">
+                <?php $i=1; foreach ($prioritas_lalu as $key=>$value): ?>
+                <li class="media event">
+                  <a class="pull-left border-green profile_thumb">
+                    <div style="font-size: 20pt; color: green; text-align: center;"><?php echo "$i"; $i++ ?></div>
+                  </a>
+                  <div class="media-body">
+                    <?php 
+                    $namanya =  $this->mgudang_model->cek_nama($key);
+                     foreach ($namanya as $row) {?>
+                    <p style="font-size: 12pt"><strong><?php echo $row->name;?> </strong> </p>
+                    <?php }?>
+                  </div>
+                </li>
+                <?php endforeach; ?>
+              </ul>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
-              <div>
-                <div class="x_title">
-                  <h2>Prakiraan pridoritas bulan ini</h2>
-                  <div class="clearfix"></div>
-                </div>
-                <ul class="list-unstyled top_profiles scroll-view">
-                  <?php foreach ($prioritas_skr as $key=>$value): ?>
-                  <li class="media event">
-                    <a class="pull-left border-green profile_thumb">
-                      <i class="fa fa-user green"></i>
-                    </a>
-                    <div class="media-body">
-                      <?php 
-                      $namanya =  $this->mgudang_model->cek_nama($key);
-                       foreach ($namanya as $row) {?>
-                      <!-- <a class="title" href="#" style="font-size: 14pt"><?php echo $key->nm_produk;?></a> -->
-                      <p style="font-size: 12pt"><strong><?php echo $row->name;}?> </strong> </p>
-                    </div>
-                  </li>
-                  <?php endforeach; ?>
-                </ul>
+              <div class="x_title">
+                <h2>Prakiraan pridoritas bulan ini</h2>
+                <div class="clearfix"></div>
               </div>
+              <ul class="list-unstyled top_profiles scroll-view">
+                <?php $i=1; foreach ($prioritas_skr as $key=>$value): ?>
+                <li class="media event">
+                  <a class="pull-left border-green profile_thumb">
+                    <div style="font-size: 20pt; color: green; text-align: center;"><?php echo "$i"; $i++ ?></div>
+                  </a>
+                  <div class="media-body">
+                    <?php
+                    echo $value; 
+                    $namanya =  $this->mgudang_model->cek_nama($key);
+                     foreach ($namanya as $row) {?>
+                    <p style="font-size: 12pt"><strong><?php echo $row->name;?></strong> </p>
+                    <?php } ?>
+                  </div>
+                </li>
+                <?php endforeach; ?>
+              </ul>
             </div>
           </div>
         </div>

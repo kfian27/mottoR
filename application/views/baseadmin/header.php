@@ -81,7 +81,7 @@
                   <li><a href="<?php echo base_url();?>invoice/t_invoice"><i class="fa fa-plus"></i> Tambah Invoice </a></li>
                   <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List Invoice</a></li>
                 </ul>
-                <h3>Laporan</h3>
+ <!--                <h3>Laporan</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-file"></i> Laporan Penjualan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -91,7 +91,7 @@
                       <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Tahunan  </a></li>
                     </ul>
                   </li>
-                </ul>
+                </ul> -->
                 <h3>Gudang</h3>
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url();?>gudang/b_in"><i class="fa fa-mail-reply"></i> Barang Masuk</a></li>
@@ -100,11 +100,12 @@
                 </ul>
                 <h3>Master</h3>
                 <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>master/pelanggan"><i class="fa fa-users"></i> User</a></li>
+                  <li><a href="<?php echo base_url();?>master/pelanggan"><i class="fa fa-users"></i> Pelanggan</a></li>
                   <li><a href="<?php echo base_url();?>master/produk"><i class="fa fa-ticket"></i> Produk</a></li>
                   <li><a href="<?php echo base_url();?>master/cat_produk"><i class="fa fa-tags"></i> Kategori Produk</a></li>
                   <li><a href="<?php echo base_url();?>master/user"><i class="fa fa-user"></i> User</a></li>
                   <li><a href="<?php echo base_url();?>master/cabang"><i class="fa fa-building-o"></i> Cabang</a></li>
+                  <li><a href="<?php echo base_url();?>master/lvl"><i class="fa fa-users"></i> User level </a></li>
                 </ul>
               </div>
             </div>

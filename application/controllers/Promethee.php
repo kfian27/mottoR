@@ -25,11 +25,18 @@ class promethee extends CI_Controller {
 	 public function __construct() {
 		parent::__construct();
 		$this->load->model('mgudang_model');
+		$this->load->model('minvoice_model');
 		$this->load->model('promethee_model');
 		$this->db_evin = $this->load->database('motto', TRUE);
 		$this->load->helper(array('form', 'url', 'file','download'));
     }
-	public function index(){redirect(base_url("admin"));}
+	public function index(){
+		// $semuanya = $this->minvoice_model->edit_data();
+		// foreach ($semuanya as $key) {
+		// 	$this->minvoice_model->update_invo($key->id_invoice,$key->total_harga);
+		// }
+		// echo "berhasil";
+	}
 	public function cek_harga($valuenya){
 		if($valuenya<=30000){
 			return 10;
@@ -43,7 +50,7 @@ class promethee extends CI_Controller {
 		elseif ($valuenya>130000 && $valuenya<=180000) {
 			return 7;
 		}
-		elseif ($valuenya>230000 && $valuenya<=280000) {
+		elseif ($valuenya>180000 && $valuenya<=280000) {
 			return 6;
 		}
 		elseif ($valuenya>280000 && $valuenya<=330000) {
@@ -64,29 +71,58 @@ class promethee extends CI_Controller {
 	}
 	public function preferensi($value,$sub){ 
 	    if($sub['type']==1){      //-- usual` 
-	        return $value==0?0:1; 
+	    	if($value==0){
+	    		return 0;
+	    	}
+	    	else{
+	    		return 1;
+	    	} 
 	    }elseif($sub['type']==2){ //-- linear 
-	        return $value==0?0:($value>$sub['p']?1:abs($value/$sub['p'])); 
+	    	if($value==0){
+	    		return 0;
+	    	}
+	    	elseif($value>$sub['p']){
+	    		return 1;
+	    	}
+	    	else{
+	    		return $value/$sub['p'];
+	    	} 
 	    }elseif($sub['type']==3){ //-- quasi 
-	        return $value<=$sub['q']?0:1; 
-	    }elseif($sub['type']==4){ //-- linear quasi 
-	        return $value<$sub['q']?0:($value>$sub['p']?1:abs($value/($sub['p']-$sub['q']))); 
-	    }elseif($sub['type']==5){ //-- level 
-	        return $value==$sub['q']?0:($value>$sub['p']?1:0.5); 
+	    	if($value<=$sub['q']){
+	    		return 0;
+	    	}
+	    	else{
+	    		return 1;
+	    	} 
+	    }elseif($sub['type']==4){ //-- linear quasi
+	    	if($value<=$sub['q']){
+	    		return 0;
+	    	}
+	    	elseif($value>$sub['p']){
+	    		return 1;
+	    	}
+	    	else{
+	    		return ($value-$sub['q'])/($sub['p']-$sub['q']);
+	    	} 
+	    }elseif($sub['type']==5){ //-- level
+	   		if($value<=$sub['q']){
+	    		return 0;
+	    	}
+	    	elseif($value>$sub['p']){
+	    		return 1;
+	    	}
+	    	else{
+	    		return 0.5;
+	    	}  
 	    }elseif($sub['type']==6){ //-- gaussian 
 	        return $value==0?0:1-exp(-1*pow($value,2)/(2*pow($sub['s'],2))); 
 	    } 
 	}
-	public function rangking($bulan)
+	public function rangking()
 	{	
 		$this->promethee_model->hapus_semua_data();
 		$ambil_data="";
-		if ($bulan == "lalu") {
-			$ambil_data = $this->promethee_model->promethee_get_data_lalu();
-		}
-		else{
 			$ambil_data = $this->promethee_model->promethee_get_data();
-		}
 		$maks_alternatif = count($ambil_data);
 		$huruf = "A";
 		foreach ($ambil_data as $key) {
@@ -97,8 +133,8 @@ class promethee extends CI_Controller {
 		$i=1;
 		foreach ($ambil_data as $key) {
 			$jumlah_barang = (int)$key->terjual + (int)$key->stok_produk;
-			$kriteria1 = $key->terjual/$jumlah_barang*60/10;
-			$kriteria2 = $jumlah_barang/$key->stok_produk*25/10;
+			$kriteria1 = $key->terjual*60/100;
+			$kriteria2 = $jumlah_barang/$key->stok_produk*25/100;
 			$kriteria3 = $this->cek_harga((int)$key->harga_produk);
 			$this->promethee_model->insert_eval($i,"1",$kriteria1);
 			$this->promethee_model->insert_eval($i,"2",$kriteria2);
@@ -127,18 +163,24 @@ class promethee extends CI_Controller {
 		    } 
 		    $data[$r->code][$r->id_sub_criteria]=$r->value; 
 		}
-		$d=array(); 
+		// print_r($data);
+		// echo "<br>";
+		$d=array();
+		// print_r($subs);
+		// echo "<br>"; 
 		foreach($alternatives as $code_A=>$name_A){ 
 		    $d[$code_A]=array(); 
 		    foreach($alternatives as $code_B=>$name_B){ 
 		        if($code_A!=$code_B){ 
 		            $d[$code_A][$code_B]=array(); 
 		            foreach($subs as $sub=>$v){
-		                $d[$code_A][$code_B][$sub]=abs($data[$code_A][$sub]-$data[$code_B][$sub]);
+		                $d[$code_A][$code_B][$sub]=$data[$code_A][$sub]-$data[$code_B][$sub];
 		            } 
 		        } 
 		    } 
-		} 
+		}
+		// print_r($d);
+		// echo "<br>";
 		$P=array(); 
 		foreach($alternatives as $code_A=>$name_A){ 
 		    $P[$code_A]=array(); 
@@ -151,7 +193,9 @@ class promethee extends CI_Controller {
 		        } 
 		    } 
 		}
-		$j=count($subs); 
+		print_r($P);
+		$j=count($subs);
+		// echo "<br>";
 		$sigma=array(); 
 		foreach($alternatives as $code_A=>$name_A){ 
 		    $sigma[$code_A]=array(); 
@@ -161,6 +205,8 @@ class promethee extends CI_Controller {
 		        } 
 		    } 
 		}
+		// print_r($sigma);
+		// echo "<br>";
 		$leaving_flow=array(); 
 		$devider=count($sigma)-1; 
 		foreach($sigma as $code_A=>$value_A){
@@ -171,7 +217,9 @@ class promethee extends CI_Controller {
 				$leaving_flow[$code_A]=array_sum($value_A)/$devider;
 			}
 		    
-		} 
+		}
+		// print_r($leaving_flow); 
+		// echo "<br>";
 		//-- menghitung Entering Flow 
 		$entering_flow=array(); 
 		foreach($sigma as $code_A=>$item_A){ 
@@ -179,20 +227,38 @@ class promethee extends CI_Controller {
 		        if(!isset($entering_flow[$code_B]))
 		        	{$entering_flow[$code_B]=0;}
 		        else{ 
-		        $entering_flow[$code_B]+=$value_B; 
+		        	$entering_flow[$code_B] += $value_B; 
 		    	}
 		    } 
-		} 
+		}
+		// foreach($sigma as $code_A=>$item_A){ 
+		// 	$a=1;
+		//     foreach($item_A as $code_B=>$value_B){ 
+		//     	if($a==1){
+		// 	        if(!isset($entering_flow[$code_B]))
+		// 	        	{$entering_flow[$code_A]=0;}
+		// 	        else{ 
+		// 	        	$entering_flow[$code_A] += $value_B; 
+		// 	    	}
+		// 	    	$a++;
+		// 	    }
+		//     } 
+		// } 
+		// print_r($entering_flow);
+		// echo "<br>";
 		foreach($sigma as $code_A=>$value_A){ 
 		    $entering_flow[$code_A]/=$devider; 
-		} 
+		}
+		// print_r($entering_flow); 
 		$net_flow=array();
 		foreach($leaving_flow as $code_A=>$value_A){ 
 		    $net_flow[$code_A]=$value_A - $entering_flow[$code_A];
 		}
 		arsort($net_flow);
 		$data_net = $net_flow;
-		return $data_net;
+		// return $data_net;
+		echo "<br>";
+		print_r($data_net);
 		// $data['rangking'] = $net_flow;
 		// $data['alternatifnya'] = $alternatives;
 		// $this->load->view('baseadmin/header.php');

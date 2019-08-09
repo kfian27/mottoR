@@ -51,7 +51,7 @@ class mproduk extends CI_Controller {
             move_uploaded_file($_FILES['ft_produk']['tmp_name'],"./assets/uploads/produk/" . basename($nama));
         }
         $this->Mproduk_model->update(
-        	$_POST['id_produk'],$_POST['id_cat'],$_POST['nm_produk'],$nama,$_POST['harga_produk'],$nama);
+        	$_POST['id_produk'],$_POST['id_cat'],$_POST['nm_produk'],$_POST['harga_produk'],$nama);
       }
   }
 	public function get_detail($id_produk)

@@ -78,6 +78,15 @@ class master extends CI_Controller {
 		$this->load->view('master/pelanggan.php',$data);
 		$this->load->view('baseadmin/footer.php');
 	}
+	public function lvl()
+	{
+		// $this->cek_login();
+		$this->load->model('mlvl_model');
+		$data['lvl_detail'] = $this->mlvl_model->get("st_lvl = 1");
+		$this->load->view('baseadmin/header.php');
+		$this->load->view('master/user_lvl.php',$data);
+		$this->load->view('baseadmin/footer.php');
+	}
 	public function cek_login(){
 		if ($this->session->userdata('name')==null){
 			redirect(base_url("admin/login"));

@@ -65,13 +65,20 @@
                       <td><?php echo $key->harga_produk; ?></td>
                       <td><?php echo $key->total_di; ?></td>
                       <?php $total_harga = $key->harga_invoice; ?>
+                      <?php $bayar = $key->byr_invoice; ?>
                     </tr>
                     <?php endforeach; ?>
                     <tr>
-                      <td style="border:0px;"></td>
-                      <td style="border:0px;"></td>
-                      <td>TOTAL</td>
+                      <td colspan="3" style="text-align: center;">TOTAL</td>
                       <td><?php echo $total_harga;?></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" style="text-align: center;">Bayar</td>
+                      <td><?php echo $bayar;?></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" style="text-align: center;">kembalian</td>
+                      <td><?php echo (int)$bayar - (int)$total_harga;?></td>
                     </tr>
                   </tbody>
                 </table>

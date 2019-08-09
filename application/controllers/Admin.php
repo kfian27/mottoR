@@ -31,8 +31,8 @@ class admin extends CI_Controller {
     }
 	public function index()
 	{
-		$this->cek_login();
-		$this->login();
+		// $this->cek_login();
+		// $this->login();
 		$this->load->model('login_model');
 		$this->load->model('mgudang_model');
 		$data['j_cabang'] = $this->login_model->j_cabang();
@@ -41,6 +41,8 @@ class admin extends CI_Controller {
 		$data['m_brg'] = $this->login_model->most_brg();
 		$data['prioritas_lalu'] = $this->rangking("lalu");
 		$data['prioritas_skr'] = $this->rangking("skr");
+		// print_r($data['prioritas_skr']);
+		// print_r($data['prioritas_lalu']);
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('baseadmin/home.php',$data);
 		$this->load->view('baseadmin/footer.php');
@@ -59,9 +61,6 @@ class admin extends CI_Controller {
 			elseif ($this->session->userdata('level')=="4") {
 				redirect(base_url("invoice/l_invoice"));
 			}
-			else{
-				$this->index();
-			}
 		}
 	}
 	public function cek_login(){
@@ -70,6 +69,7 @@ class admin extends CI_Controller {
 		}	
 	}
 	public function cek_harga($valuenya){
+		$valuenya = $valuenya - 10000;
 		if($valuenya<=30000){
 			return 10;
 		}
@@ -82,7 +82,7 @@ class admin extends CI_Controller {
 		elseif ($valuenya>130000 && $valuenya<=180000) {
 			return 7;
 		}
-		elseif ($valuenya>230000 && $valuenya<=280000) {
+		elseif ($valuenya>180000 && $valuenya<=280000) {
 			return 6;
 		}
 		elseif ($valuenya>280000 && $valuenya<=330000) {
@@ -103,15 +103,49 @@ class admin extends CI_Controller {
 	}
 	public function preferensi($value,$sub){ 
 	    if($sub['type']==1){      //-- usual` 
-	        return $value==0?0:1; 
+	    	if($value==0){
+	    		return 0;
+	    	}
+	    	else{
+	    		return 1;
+	    	} 
 	    }elseif($sub['type']==2){ //-- linear 
-	        return $value==0?0:($value>$sub['p']?1:abs($value/$sub['p'])); 
+	    	if($value==0){
+	    		return 0;
+	    	}
+	    	elseif($value>$sub['p']){
+	    		return 1;
+	    	}
+	    	else{
+	    		return $value/$sub['p'];
+	    	} 
 	    }elseif($sub['type']==3){ //-- quasi 
-	        return $value<=$sub['q']?0:1; 
-	    }elseif($sub['type']==4){ //-- linear quasi 
-	        return $value<$sub['q']?0:($value>$sub['p']?1:abs($value/($sub['p']-$sub['q']))); 
-	    }elseif($sub['type']==5){ //-- level 
-	        return $value==$sub['q']?0:($value>$sub['p']?1:0.5); 
+	    	if($value<=$sub['q']){
+	    		return 0;
+	    	}
+	    	else{
+	    		return 1;
+	    	} 
+	    }elseif($sub['type']==4){ //-- linear quasi
+	    	if($value<=$sub['q']){
+	    		return 0;
+	    	}
+	    	elseif($value>$sub['p']){
+	    		return 1;
+	    	}
+	    	else{
+	    		return ($value-$sub['q'])/($sub['p']-$sub['q']);
+	    	} 
+	    }elseif($sub['type']==5){ //-- level
+	   		if($value<=$sub['q']){
+	    		return 0;
+	    	}
+	    	elseif($value>$sub['p']){
+	    		return 1;
+	    	}
+	    	else{
+	    		return 0.5;
+	    	}  
 	    }elseif($sub['type']==6){ //-- gaussian 
 	        return $value==0?0:1-exp(-1*pow($value,2)/(2*pow($sub['s'],2))); 
 	    } 
@@ -135,9 +169,9 @@ class admin extends CI_Controller {
 		$this->promethee_model->hapus_data_hasil();
 		$i=1;
 		foreach ($ambil_data as $key) {
-			$jumlah_barang = (int)$key->terjual + (int)$key->stok_produk;
-			$kriteria1 = $key->terjual/$jumlah_barang*60/10;
-			$kriteria2 = $jumlah_barang/$key->stok_produk*25/10;
+			$jumlah_barang = (int)$key->qty_di + (int)$key->stok_produk;
+			$kriteria1 = $key->qty_di*60/100;
+			$kriteria2 = $jumlah_barang/$key->stok_produk*25/100;
 			$kriteria3 = $this->cek_harga((int)$key->harga_produk);
 			$this->promethee_model->insert_eval($i,"1",$kriteria1);
 			$this->promethee_model->insert_eval($i,"2",$kriteria2);
@@ -173,7 +207,7 @@ class admin extends CI_Controller {
 		        if($code_A!=$code_B){ 
 		            $d[$code_A][$code_B]=array(); 
 		            foreach($subs as $sub=>$v){
-		                $d[$code_A][$code_B][$sub]=abs($data[$code_A][$sub]-$data[$code_B][$sub]);
+		                $d[$code_A][$code_B][$sub]=$data[$code_A][$sub]-$data[$code_B][$sub];
 		            } 
 		        } 
 		    } 
