@@ -1,4 +1,3 @@
- <?php $this->load->model('mcat_model');?>
  <style>
   #image-holder {
       margin-top: 8px;
@@ -29,15 +28,16 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nama</th>
+                    <th data-priority="1">Nama</th>
                     <th>Kategori Produk</th>
                     <th>Harga Beli</th>
                     <th>Harga Umum</th>
                     <th>Harga Partai</th>
                     <th>Harga Freelance</th>
                     <th>Stok</th>
+                    <th>Suplier</th>
                     <th>Update</th>
-                    <th>Action</th>
+                    <th data-priority="2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,6 +51,7 @@
                     <td><?php echo $row->harga_partai;?></td>
                     <td><?php echo $row->harga_freelance;?></td>
                     <td><?php echo $row->stok_produk;?></td>
+                    <td><?php $nama = $this->msuplier_model->get('id_sup = '.$row->id_suplier); echo $nama[0]->nm_sup ;?></td>
                     <td><?php echo $row->up_produk; $a++; ?></td>
                     <td>
                         <button type="button" data-title='Delete' data-toggle='modal' onclick="javascript:hapus('mproduk/delete/<?php echo $row->id_produk; ?>/<?php echo $row->ft_produk; ?>');" class="btn btn-danger pull-right"> Hapus</button>
@@ -73,12 +74,23 @@
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Jenis Produk  </label>
+              <label for="tiga" class="col-sm-2 control-label"> Kategori Produk  </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
                 <select class="form-control" name="id_cat" id="id_cat" required="required">
                   <option value="0">-pilih jenis-</option>
                   <?php foreach ($kategori_detail as $row): ?>
                   <option value="<?php echo $row->id_cat;?>"><?php echo $row->nm_cat;?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label"> Suplier  </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <select class="form-control" name="id_suplier" id="id_suplier" required="required">
+                  <option value="0">-pilih Suplier-</option>
+                  <?php foreach ($suplier_detail as $row): ?>
+                  <option value="<?php echo $row->id_sup;?>"><?php echo $row->nm_sup;?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -250,6 +262,8 @@ function ubah(url){
             $('#nm_produk').val(data.data.nm_produk);
             $('#id_cat').val(data.data.id_cat);
             $('#id_cat').select2({width:'100%'}).trigger('change');
+            $('#id_suplier').val(data.data.id_suplier);
+            $('#id_suplier').select2({width:'100%'}).trigger('change');
             $('#beli_produk').val(data.data.beli_produk);
             $('#harga_umum').val(data.data.harga_umum);
             $('#harga_freelance').val(data.data.harga_freelance);

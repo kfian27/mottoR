@@ -41,7 +41,7 @@ class mproduk extends CI_Controller {
             move_uploaded_file($_FILES['ft_produk']['tmp_name'],"./assets/uploads/produk/" . basename($nama));
         }
         $insert_id = $this->Mproduk_model->insert(
-            $_POST['id_cat'],$_POST['nm_produk'],'0',$_POST['beli_produk'],$nama,$_POST['harga_umum'],$_POST['harga_partai'],$_POST['harga_freelance']);
+            $_POST['id_cat'],$_POST['nm_produk'],'0',$_POST['beli_produk'],$nama,$_POST['harga_umum'],$_POST['harga_partai'],$_POST['harga_freelance'],$_POST['id_suplier']);
       }
       else {
       $nama = $_POST['fotonya'];
@@ -51,7 +51,7 @@ class mproduk extends CI_Controller {
             move_uploaded_file($_FILES['ft_produk']['tmp_name'],"./assets/uploads/produk/" . basename($nama));
         }
         $this->Mproduk_model->update(
-        	$_POST['id_produk'],$_POST['id_cat'],$_POST['nm_produk'],$_POST['beli_produk'],$nama,$_POST['harga_umum'],$_POST['harga_partai'],$_POST['harga_freelance']);
+        	$_POST['id_produk'],$_POST['id_cat'],$_POST['nm_produk'],$_POST['beli_produk'],$nama,$_POST['harga_umum'],$_POST['harga_partai'],$_POST['harga_freelance'],$_POST['id_suplier']);
       }
   }
 	public function get_detail($id_produk)

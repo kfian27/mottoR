@@ -33,8 +33,10 @@ class master extends CI_Controller {
 		// $this->cek_login();
 		$this->load->model('mproduk_model');
 		$this->load->model('mcat_model');
+		$this->load->model('msuplier_model');
 		$data['produk_detail'] = $this->mproduk_model->get();
 		$data['kategori_detail'] = $this->mcat_model->get();
+		$data['suplier_detail'] = $this->msuplier_model->get();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('master/produk.php',$data);
 		$this->load->view('baseadmin/footer.php');

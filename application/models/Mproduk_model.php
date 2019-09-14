@@ -35,6 +35,7 @@ class mproduk_model extends CI_Model {
 		    	$this->db_evin->select('harga_umum');
 		    	$this->db_evin->select('harga_partai');
 		    	$this->db_evin->select('harga_freelance');
+		    	$this->db_evin->select('id_suplier');
 	    	}
             	$this->db_evin->from('produk');
 		}
@@ -65,7 +66,7 @@ class mproduk_model extends CI_Model {
 		 * @author Fian Hidayah
 		 * Fungsi untuk insert data ke tabel survei
 		 */
-		function insert($id_cat=false,$nm_produk=false,$stok_produk=false,$beli_produk=false,$ft_produk=false,$harga_umum=false,$harga_partai=false,$harga_freelance=false)
+		function insert($id_cat=false,$nm_produk=false,$stok_produk=false,$beli_produk=false,$ft_produk=false,$harga_umum=false,$harga_partai=false,$harga_freelance=false,$id_suplier=false)
 		{
 			$data = array();
       		$data['id_user']= $this->session->userdata('id');
@@ -77,13 +78,14 @@ class mproduk_model extends CI_Model {
 			if($harga_umum !== false)$data['harga_umum'] = trim($harga_umum);
 			if($harga_partai !== false)$data['harga_partai'] = trim($harga_partai);
 			if($harga_freelance !== false)$data['harga_freelance'] = trim($harga_freelance);
+			if($id_suplier !== false)$data['id_suplier'] = trim($id_suplier);
 			$data['up_produk'] = now();
 			$data['st_produk'] = TERSEDIA;
 			$this->db_evin->insert('produk', $data);
 			return $this->db_evin->insert_id();
 		}
 
-		function update($id_produk=false,$id_cat=false,$nm_produk=false,$beli_produk=false,$ft_produk=false,$harga_umum=false,$harga_partai=false,$harga_freelance=false)
+		function update($id_produk=false,$id_cat=false,$nm_produk=false,$beli_produk=false,$ft_produk=false,$harga_umum=false,$harga_partai=false,$harga_freelance=false,$id_suplier=false)
 		{
 			$data = array();
       		$data['id_user']= $this->session->userdata('id');
@@ -94,6 +96,7 @@ class mproduk_model extends CI_Model {
 			if($harga_umum !== false)$data['harga_umum'] = trim($harga_umum);
 			if($harga_partai !== false)$data['harga_partai'] = trim($harga_partai);
 			if($harga_freelance !== false)$data['harga_freelance'] = trim($harga_freelance);
+			if($id_suplier !== false)$data['id_suplier'] = trim($id_suplier);
 			$data['up_produk'] = now();;
 
 			return $this->db_evin->update('produk', $data, "id_produk = $id_produk");

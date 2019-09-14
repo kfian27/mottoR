@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100137
 File Encoding         : 65001
 
-Date: 2019-09-14 13:29:03
+Date: 2019-09-14 15:13:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -841,24 +841,25 @@ CREATE TABLE `produk` (
   `harga_umum` varchar(255) DEFAULT NULL,
   `harga_partai` varchar(255) DEFAULT NULL,
   `harga_freelance` varchar(255) DEFAULT NULL,
+  `id_suplier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_produk`),
   KEY `fk_relationship_1` (`id_cat`),
   KEY `fk_relationship_6` (`id_user`),
   CONSTRAINT `fk_relationship_1` FOREIGN KEY (`id_cat`) REFERENCES `kategori_produk` (`id_cat`),
   CONSTRAINT `fk_relationship_6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of produk
 -- ----------------------------
-INSERT INTO `produk` VALUES ('1', '1', '3', 'COVER ARM HAGER CBR 150R new', '27', '25000', 'Cover_arm.PNG', '2019-09-13 22:49:22', '1', '30000', '27000', '29000');
-INSERT INTO `produk` VALUES ('2', '1', '5', 'Front bottom shock', '23', '160000', 'front_botton_shock.PNG', '2019-09-13 22:49:45', '1', '180000', '170000', '175000');
-INSERT INTO `produk` VALUES ('3', '1', '1', 'Cover tank cbr 150', '63', '40000', 'cover_tank_cbr.PNG', '2019-07-25 10:40:08', '1', null, null, null);
-INSERT INTO `produk` VALUES ('4', '1', '6', 'cover tank abs vixion', '50', '50000', 'cover_tank_vixion.PNG', '2019-07-25 10:40:30', '1', null, null, null);
-INSERT INTO `produk` VALUES ('5', '1', '3', 'SWING ARM R6 MEGAPRO', '14', '890000', 'swing arm.PNG', '2019-07-25 10:37:28', '1', null, null, null);
-INSERT INTO `produk` VALUES ('6', '1', '4', 'BOX NMAX', '37', '50000', 'box_nmax.PNG', '2019-07-25 10:38:15', '1', null, null, null);
-INSERT INTO `produk` VALUES ('7', '1', '2', 'Spakbor KSr cyber led+sen', '0', '67000', 'user.png', '2019-07-30 23:09:52', '1', null, null, null);
-INSERT INTO `produk` VALUES ('8', '1', '3', 'Cover head CBR 150', '0', '80000', 'user.png', '2019-07-30 23:11:21', '1', null, null, null);
+INSERT INTO `produk` VALUES ('1', '1', '3', 'COVER ARM HAGER CBR 150R new', '27', '25000', 'Cover_arm.PNG', '2019-09-14 15:12:23', '1', '30000', '27000', '29000', '1');
+INSERT INTO `produk` VALUES ('2', '1', '5', 'Front bottom shock', '23', '160000', 'front_botton_shock.PNG', '2019-09-14 15:12:33', '1', '180000', '170000', '175000', '1');
+INSERT INTO `produk` VALUES ('3', '1', '1', 'Cover tank cbr 150', '63', '40000', 'cover_tank_cbr.PNG', '2019-07-25 10:40:08', '1', null, null, null, '1');
+INSERT INTO `produk` VALUES ('4', '1', '6', 'cover tank abs vixion', '50', '50000', 'cover_tank_vixion.PNG', '2019-07-25 10:40:30', '1', null, null, null, '1');
+INSERT INTO `produk` VALUES ('5', '1', '3', 'SWING ARM R6 MEGAPRO', '14', '890000', 'swing arm.PNG', '2019-07-25 10:37:28', '1', null, null, null, '1');
+INSERT INTO `produk` VALUES ('6', '1', '4', 'BOX NMAX', '37', '50000', 'box_nmax.PNG', '2019-07-25 10:38:15', '1', null, null, null, '1');
+INSERT INTO `produk` VALUES ('7', '1', '2', 'Spakbor KSr cyber led+sen', '0', '67000', 'user.png', '2019-07-30 23:09:52', '1', null, null, null, '1');
+INSERT INTO `produk` VALUES ('8', '1', '3', 'Cover head CBR 150', '0', '80000', 'user.png', '2019-07-30 23:11:21', '1', null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for pro_alternatives
