@@ -17,7 +17,7 @@
     <!-- Bootstrap -->
     <link href="<?php echo base_url();?>assets/dash/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- summernote -->
-    <link href="<?php echo base_url();?>assets/dash/vendors/summernote/dist/summernote.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url();?>assets/dash/vendors/summernote/dist/summernote.css" rel="stylesheet"> -->
     <!-- Font Awesome -->
     <link href="<?php echo base_url();?>assets/dash/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->

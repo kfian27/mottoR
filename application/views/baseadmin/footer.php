@@ -7,7 +7,7 @@
         <!-- /footer content -->
       </div>
     </div>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       $(document).ready(function() {
         $('.summernote').summernote({
           height: 300, // set editor height
@@ -35,7 +35,7 @@
           }
         });
       });
-    </script>
+    </script> -->
     <!-- Bootstrap -->
     <script src="<?php echo base_url();?>assets/dash/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/dash/vendors/select2/dist/js/select2.min.js"></script>
@@ -48,7 +48,7 @@
         });
       </script>
     <!-- summernote -->
-    <script src="<?php echo base_url();?>assets/dash/vendors/summernote/dist/summernote.js"></script>
+    <!-- <script src="<?php echo base_url();?>assets/dash/vendors/summernote/dist/summernote.js"></script> -->
     <!-- FastClick -->
     <script src="<?php echo base_url();?>assets/dash/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
