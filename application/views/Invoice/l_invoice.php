@@ -22,7 +22,7 @@
                       <th>Tanggal Pembelian</th>
                       <th>Status</th>
                       <th data-priority="2">Kasir</th>
-                      <th>Action</th>
+                      <th data-priority="3">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -36,9 +36,10 @@
                       <td><?php echo $row->harga_invoice; ?></td>
                       <td><?php echo $row->tgl_invoice; $a++; ?></td>
                       <td><?php echo $row->st_invoice; ?></td>
-                      <td><?php echo $row->id_user; ?></td>
-                      <td>
-                        <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-info">Detail</a>
+                      <td><?php $nama = $this->muser_model->get('id_user = '.$row->id_user); echo $nama[0]->username; ?></td>
+                      <td prio>
+                        <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice."/".$row->harga_jual;?>" class="btn btn-info">Detail</a>
+                        <a href="<?php echo base_url()?>/invoice/surat_jalan/<?php echo $row->id_invoice."/".$row->harga_jual;?>" class="btn btn-info">Surat Jalan</a>
                         <?php if($row->status_bayar=="Belum lunas"):?>
                         <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-success">Bayar</a>
                       <?php endif; ?>

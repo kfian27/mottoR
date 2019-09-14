@@ -50,6 +50,7 @@ class gudang extends CI_Controller {
 	{
 		// $this->cek_login();
 		$this->load->model('mgudang_model');
+		$this->load->model('mproduk_model');
 		$data['gudang_detail'] = $this->mgudang_model->get();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('gudang/list_b.php',$data);

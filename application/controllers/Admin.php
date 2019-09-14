@@ -39,8 +39,8 @@ class admin extends CI_Controller {
 		$data['j_tr'] = $this->login_model->j_tr();
 		$data['j_proses'] = $this->login_model->j_proses();
 		$data['m_brg'] = $this->login_model->most_brg();
-		$data['prioritas_lalu'] = $this->rangking("lalu");
-		$data['prioritas_skr'] = $this->rangking("skr");
+		// $data['prioritas_lalu'] = $this->rangking("lalu");
+		// $data['prioritas_skr'] = $this->rangking("skr");
 		// print_r($data['prioritas_skr']);
 		// print_r($data['prioritas_lalu']);
 		$this->load->view('baseadmin/header.php');

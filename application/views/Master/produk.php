@@ -1,3 +1,4 @@
+ <?php $this->load->model('mcat_model');?>
  <style>
   #image-holder {
       margin-top: 8px;
@@ -29,8 +30,11 @@
                   <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Jenis</th>
-                    <th>Harga</th>
+                    <th>Kategori Produk</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Umum</th>
+                    <th>Harga Partai</th>
+                    <th>Harga Freelance</th>
                     <th>Stok</th>
                     <th>Update</th>
                     <th>Action</th>
@@ -41,8 +45,11 @@
                 <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $row->nm_produk;?></td>
-                    <td><?php echo $row->id_cat;?></td>
-                    <td><?php echo $row->harga_produk;?></td>
+                    <td><?php $nama = $this->mcat_model->get('id_cat = '.$row->id_cat); echo $nama[0]->nm_cat ;?></td>
+                    <td><?php echo $row->beli_produk;?></td>
+                    <td><?php echo $row->harga_umum;?></td>
+                    <td><?php echo $row->harga_partai;?></td>
+                    <td><?php echo $row->harga_freelance;?></td>
                     <td><?php echo $row->stok_produk;?></td>
                     <td><?php echo $row->up_produk; $a++; ?></td>
                     <td>
@@ -77,9 +84,27 @@
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label">Harga </label>
+              <label for="tiga" class="col-sm-2 control-label">Harga Beli </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
-                <input type="number" class="form-control" placeholder="harga" name="harga_produk" id="harga_produk" required>
+                <input type="number" class="form-control" placeholder="harga" name="beli_produk" id="beli_produk" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label">Harga Umum </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="number" class="form-control" placeholder="harga" name="harga_umum" id="harga_umum" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label">Harga Partai </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="number" class="form-control" placeholder="harga" name="harga_partai" id="harga_partai" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label">Harga Freelance</label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="number" class="form-control" placeholder="harga" name="harga_freelance" id="harga_freelance" required>
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
@@ -158,7 +183,7 @@ function tambah(){
     $('#tombol-tambah').attr('disabled',true);
     $('#id_produk').val("");
     $('#nm_produk').val("");
-    $('#harga_produk').val("");
+    $('#beli_produk').val("");
     $('#imagenya').hide();
     $('#fotonya').val("");
 }
@@ -224,7 +249,11 @@ function ubah(url){
             // $.fillToForm("#detail-tambah", data.data);
             $('#nm_produk').val(data.data.nm_produk);
             $('#id_cat').val(data.data.id_cat);
-            $('#harga_produk').val(data.data.harga_produk);
+            $('#id_cat').select2({width:'100%'}).trigger('change');
+            $('#beli_produk').val(data.data.beli_produk);
+            $('#harga_umum').val(data.data.harga_umum);
+            $('#harga_freelance').val(data.data.harga_freelance);
+            $('#harga_partai').val(data.data.harga_partai);
             $('#id_produk').val(data.data.id_produk);
             $('#imagenya').attr("src","<?php echo base_url();?>assets/uploads/produk/"+fotomu);
             $('#fotonya').val(data.data.ft_produk);

@@ -62,6 +62,7 @@ class master extends CI_Controller {
 		// $this->cek_login();
 		$this->load->model('mcabang_model');
 		$this->load->model('muser_model');
+		$this->load->model('mlvl_model');
 		$data['cabang_detail'] = $this->mcabang_model->get();
 		$data['user_detail'] = $this->muser_model->get();
 		$data['level_detail'] = $this->muser_model->get_lvl_user();
@@ -76,6 +77,15 @@ class master extends CI_Controller {
 		$data['pelanggan_detail'] = $this->mplg_model->get();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('master/pelanggan.php',$data);
+		$this->load->view('baseadmin/footer.php');
+	}
+	public function suplier()
+	{
+		// $this->cek_login();
+		$this->load->model('msuplier_model');
+		$data['suplier_detail'] = $this->msuplier_model->get();
+		$this->load->view('baseadmin/header.php');
+		$this->load->view('master/suplier.php',$data);
 		$this->load->view('baseadmin/footer.php');
 	}
 	public function lvl()

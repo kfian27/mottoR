@@ -6,7 +6,7 @@
         <div class="x_title">
           <a href="<?php echo base_url()?>/invoice/l_invoice/" class="btn btn-success"><i class="fa fa-angle-left"></i> Kembali </a>
           <div class="nav navbar-right ">
-            <a class="btn btn-info" onclick="print_areannya()"><i class="fa fa-print"></i> Cetak</a>
+            <a class="btn btn-info" onclick="print_areannya('detail')"><i class="fa fa-print"></i> Cetak</a>
           </div>
         </div>
         <div class="x_content">
@@ -47,45 +47,29 @@
             </div>
             <div class="col-sm-12 col-xs-12 col-md-12">
               <div class="table-responsive">
+                <h2 style="font-weight: bold;">SURAT JALAN</h2>
                 <h2 style="font-weight: bold;">No : <?php echo $nomernya;?></h2>
                 <table id="tablenya" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>Nama Barang</th>
                       <th>Qty</th>
-                      <th>Harga (Satuan)</th>
-                      <th>Jumlah</th>
+                      <th>Keterangan</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php foreach ($invoice_detail as $key): ?>
                     <tr>
-                      <td><?php echo $key->nm_produk; ?></td>
                       <td><?php echo $key->qty_di; ?></td>
-                      <td><?php echo $key->total_di/$key->qty_di; ?></td>
-                      <td><?php echo $key->total_di; ?></td>
-                      <?php $total_harga = $key->harga_invoice; ?>
-                      <?php $bayar = $key->byr_invoice; ?>
+                      <td><?php echo $key->nm_produk; ?></td>
                     </tr>
                     <?php endforeach; ?>
-                    <tr>
-                      <td colspan="3" style="text-align: center;">Total</td>
-                      <td><?php echo $total_harga;?></td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" style="text-align: center;">Bayar</td>
-                      <td><?php echo $bayar;?></td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" style="text-align: center;">Kembalian</td>
-                      <td><?php echo (int)$bayar - (int)$total_harga;?></td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
             <br>
+            <h5 style="text-align: left;">Expedisi : </h5>
             <h5 style="text-decoration: underline; font-weight: bold; font-style: italic;">Tanda terima</h5>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
@@ -105,12 +89,8 @@
     <div class="clearfix"></div>
   </div>
   <script type="text/javascript">
-    // $(document).ready(function() {
-    //   var isi = "detail"
-    //   print_areannya();
-    // });
-    function print_areannya() {
-      var printContent = $('#detail').html();
+    function print_areannya(namadiv) {
+      var printContent = document.getElementById(namadiv).innerHTML;
       var content = document.body.innerHTML;
       document.body.innerHTML = printContent;
       window.print();

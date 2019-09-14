@@ -3,7 +3,7 @@
      * @author Fian Hidayah
 	 * Model untuk table
 	 */
-class mplg_model extends CI_Model {
+class msuplier_model extends CI_Model {
 
 	/**
 	 * @author Fian Hidayah
@@ -23,14 +23,12 @@ class mplg_model extends CI_Model {
 		 */
 		public function select($selectcolumn=true){
 	    	if($selectcolumn){
-		    	$this->db_evin->select('id_plg');
-		    	$this->db_evin->select('nm_plg');
-		    	$this->db_evin->select('alm_plg');
-		    	$this->db_evin->select('kota_plg');
-		    	$this->db_evin->select('id_hargajual');
-		    	$this->db_evin->select('st_plg');
+		    	$this->db_evin->select('id_sup');
+		    	$this->db_evin->select('nm_sup');
+		    	$this->db_evin->select('alm_sup');
+		    	$this->db_evin->select('st_sup');
 	    	}
-            	$this->db_evin->from('pelanggan');
+            	$this->db_evin->from('suplier');
 		}
 
 		/**
@@ -40,7 +38,7 @@ class mplg_model extends CI_Model {
          * @param type $offset mulai dari mana
          * @return type hasil query dari database
          */
-        function get($where = "", $order = "id_plg asc", $limit=null, $offset=null, $selectcolumn = true){
+        function get($where = "", $order = "id_sup asc", $limit=null, $offset=null, $selectcolumn = true){
   			 $this->select($selectcolumn);
   			 if($limit != null) $this->db_evin->limit($limit, $offset);
   			 if($where != "") $this->db_evin->where($where);
@@ -48,10 +46,10 @@ class mplg_model extends CI_Model {
   			 $query = $this->db_evin->get();
   			 return $query->result();
         }
-        function get_by_id($id_plg)
+        function get_by_id($id_sup)
 		 {
-			if($id_plg == null || trim($id_plg) == "") return null;
-			$result = $this->get("id_plg = '".$id_plg."'");
+			if($id_sup == null || trim($id_sup) == "") return null;
+			$result = $this->get("id_sup = '".$id_sup."'");
 			return count($result) == 0?null:$result[0];
 		 }
 
@@ -59,36 +57,32 @@ class mplg_model extends CI_Model {
 		 * @author Fian Hidayah
 		 * Fungsi untuk insert data ke tabel survei
 		 */
-		function insert($nm_plg=false,$alm_plg=false,$kota_plg=false,$id_hargajual=false)
+		function insert($nm_sup=false,$alm_sup=false)
 		{
 			$data = array();
-			if($nm_plg !== false)$data['nm_plg'] = trim($nm_plg);
-			if($alm_plg !== false)$data['alm_plg'] = trim($alm_plg);
-			if($kota_plg !== false)$data['kota_plg'] = trim($kota_plg);
-			if($id_hargajual !== false)$data['id_hargajual'] = trim($id_hargajual);
-			$data['st_plg'] = STATUS_ACTIVE;
-			$this->db_evin->insert('pelanggan', $data);
+			if($nm_sup !== false)$data['nm_sup'] = trim($nm_sup);
+			if($alm_sup !== false)$data['alm_sup'] = trim($alm_sup);
+			$data['st_sup'] = STATUS_ACTIVE;
+			$this->db_evin->insert('suplier', $data);
 			return $this->db_evin->insert_id();
 		}
 
-		function update($id_plg=false,$nm_plg=false,$alm_plg=false,$kota_plg=false,$id_hargajual=false)
+		function update($id_sup=false,$nm_sup=false,$alm_sup=false)
 		{
 			$data = array();
-      		if($nm_plg !== false)$data['nm_plg'] = trim($nm_plg);
-			if($alm_plg !== false)$data['alm_plg'] = trim($alm_plg);
-			if($kota_plg !== false)$data['kota_plg'] = trim($kota_plg);
-			if($id_hargajual !== false)$data['id_hargajual'] = trim($id_hargajual);
-			return $this->db_evin->update('pelanggan', $data, "id_plg = $id_plg");
+      		if($nm_sup !== false)$data['nm_sup'] = trim($nm_sup);
+      		if($alm_sup !== false)$data['alm_sup'] = trim($alm_sup);
+			return $this->db_evin->update('suplier', $data, "id_sup = $id_sup");
 		}
 
 		 /* @author Fian Hidayah
 		 * Fungsi untuk delete data dari tabel Survei
 		 */
-		function delete($id_plg)
+		function delete($id_sup)
 		{
 			$data = array();
-			$data['st_plg'] = STATUS_DELETE;
-			$this->db_evin->update('pelanggan', $data, "id_plg = $id_plg");
+			$data['st_sup'] = STATUS_DELETE;
+			$this->db_evin->update('suplier', $data, "id_sup = $id_sup");
 		}
 
 		/**
@@ -99,7 +93,7 @@ class mplg_model extends CI_Model {
 		function count_all($where = "")
 		{
 			if($where != null)$this->db_evin->where($where);
-			return $this->db_evin->count_all_results('pelanggan');
+			return $this->db_evin->count_all_results('suplier');
 		}
 }
 ?>

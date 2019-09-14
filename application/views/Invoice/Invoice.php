@@ -41,6 +41,13 @@
                     <input type="text" id="kota_plg" name="kota_plg" class="form-control col-md-7 col-xs-12">
                   </div>
                 </div>
+                <div class="item form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kota_plg">Harga</label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" id="id_hargajual" name="id_hargajual" class="form-control col-md-7 col-xs-12" disabled="true">
+                    <input type="hidden" name="id_hargajual1" id="id_hargajual1">
+                  </div>
+                </div>
               </div>
               <div class="ln_solid"></div>
               <div class="item form-group">
@@ -50,7 +57,7 @@
                   <select id="produk" name="produk" class="form-control col-md-12 col-sm-12 col-xs-12" style="width: 100%;">
                     <option></option>
                     <?php foreach ($produk_detail as $key): ?>
-                      <option value="<?php echo $key->id_produk; ?>" harga="<?php echo $key->harga_produk; ?>"><?php echo $key->nm_produk; ?></option>
+                      <option value="<?php echo $key->id_produk; ?>" harga="<?php echo $key->beli_produk; ?>"><?php echo $key->nm_produk; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -168,6 +175,8 @@
                 $('#nm_plg').val(data.nm_plg);
                 $('#alm_plg').val(data.alm_plg);
                 $('#kota_plg').val(data.kota_plg);
+                $('#id_hargajual').val(data.id_hargajual);
+                $('#id_hargajual1').val(data.id_hargajual);
                 $('.plg').show();
             },
             error : function(res)
@@ -181,13 +190,14 @@
   $('#add_produk').click(function(){
     var id_produk = $('#produk').val();
     var qty = $('#qty').val();
+    var jenis_harga = $('#id_hargajual1').val();
     var harga_produk = $('#produk option:selected').attr("harga");
     if(id_produk && qty)
     {
         $.ajax({
             url:"<?php echo base_url(); ?>invoice/save_tmp",
             method:"POST",
-            data:{id_produk:id_produk, qty:qty, harga_produk:harga_produk},
+            data:{id_produk:id_produk, qty:qty, harga_produk:harga_produk, jenis_harga:jenis_harga},
             //dataType:"json",
             success:function(data)
             {

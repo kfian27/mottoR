@@ -21,6 +21,7 @@
                     <th>Nama Toko</th>
                     <th>Alamat</th>
                     <th>Kota</th>
+                    <th>Harga Jual</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -31,6 +32,7 @@
                     <td><?php echo $row->nm_plg;?></td>
                     <td><?php echo $row->alm_plg;?></td>
                     <td><?php echo $row->kota_plg; $a++; ?></td>
+                    <td><?php echo $row->id_hargajual;?></td>
                     <td>
                         <button type="button" data-title='Delete' data-toggle='modal' onclick="javascript:konfirmasi('mplg/delete/<?php echo $row->id_plg; ?>');" class="btn btn-danger pull-right"> Hapus</button>
                         <button type="button" data-title='Edit' onclick="javasript:ubah('mplg/get_detail/<?php echo $row->id_plg; ?>')" class="btn btn-primary pull-right"> Edit</button>
@@ -65,6 +67,17 @@
                 <!-- <select class="form-control" name="kota_plg" id="kota_plg" required="required">
                   <option value="0">-pilih produk-</option>
                 </select> -->
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label"> Harga Jual </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <select class="form-control" name="id_hargajual" id="id_hargajual" required="required">
+                  <option value="0">-pilih harga-</option>
+                  <option value="umum">Umum</option>
+                  <option value="partai">Partai</option>
+                  <option value="freelance">freelance</option>
+                </select>
               </div>
             </div>
             <div class="ln_solid"></div>
@@ -151,6 +164,8 @@ function ubah(url){
           $('#nm_plg').val(data.data.nm_plg);
           $('#alm_plg').val(data.data.alm_plg);
           $('#kota_plg').val(data.data.kota_plg);
+          $('#id_hargajual').val(data.data.id_hargajual);
+          $('#id_hargajual').select2({width:'100%'}).trigger('change');
           $('#form-tambah').show();
       },
       error : function(res)

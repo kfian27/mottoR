@@ -26,6 +26,7 @@ class invoice extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('minvoice_model');
+		$this->load->model('mproduk_model');
 		$this->load->helper(array('form', 'url', 'file','download'));
     }
 	public function index(){redirect(base_url("admin"));}
@@ -43,17 +44,28 @@ class invoice extends CI_Controller {
 	public function l_invoice()
 	{
 		$this->cek_login();
-		$data['invoice_detail'] = $this->minvoice_model->get();
+		$this->load->model('muser_model');
+		$data['invoice_detail'] = $this->minvoice_model->get('','tgl_invoice desc');
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('invoice/l_invoice.php',$data);
 		$this->load->view('baseadmin/footer.php');
 	}
-	public function d_invoice($nomer_invoice){
+	public function d_invoice($nomer_invoice,$jenis_harga){
 		$this->cek_login();
-		$data['invoice_detail'] = $this->minvoice_model->get_di_all($nomer_invoice);
+		$data['invoice_detail'] = $this->minvoice_model->get_di_all($nomer_invoice,$jenis_harga);
 		$data['data_invoice'] = $this->minvoice_model->get("id_invoice = ".$nomer_invoice);
+		$dataq['jenis_harga'] = $jenis_harga;
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('invoice/d_invoice.php',$data);
+		$this->load->view('baseadmin/footer.php');
+	}
+	public function surat_jalan($nomer_invoice,$jenis_harga){
+		$this->cek_login();
+		$data['invoice_detail'] = $this->minvoice_model->get_di_all($nomer_invoice,$jenis_harga);
+		$data['data_invoice'] = $this->minvoice_model->get("id_invoice = ".$nomer_invoice);
+		$dataq['jenis_harga'] = $jenis_harga;
+		$this->load->view('baseadmin/header.php');
+		$this->load->view('invoice/surat_jalan.php',$data);
 		$this->load->view('baseadmin/footer.php');
 	}
 	public function cek_login(){
@@ -64,8 +76,20 @@ class invoice extends CI_Controller {
 	function save_tmp()
 	{
 		$id_produk = (int)$this->input->post('id_produk');
+		$jenis_harga = $this->input->post('jenis_harga');
 		$qty = (int)$this->input->post('qty');
-		$harga_produk = ((int)$this->input->post('harga_produk')*$qty);
+		$get_harga = $this->mproduk_model->get('id_produk = '.$id_produk);
+		$harga_produk = '';
+		if ($jenis_harga=='umum') {
+			$harga_produk = (int)$get_harga[0]->harga_umum*$qty;
+		}
+		elseif ($jenis_harga=='freelance') {
+			$harga_produk = (int)$get_harga[0]->harga_freelance*$qty;
+		}
+		elseif ($jenis_harga=='partai') {
+			$harga_produk = (int)$get_harga[0]->harga_partai*$qty;
+		}
+		// $harga_produk = ((int)$this->input->post('harga_produk')*$qty);
         $save_data = array(
           	'id_produk'   		=> $id_produk,
           	'id_invoice'      	=> $this->session->userdata('id'),
@@ -120,7 +144,7 @@ class invoice extends CI_Controller {
     		if ($this->input->post('bayar')<$totalnya) {
     			$status_bayar = "Belum lunas";
     		}
-    		$insert_id = $this->minvoice_model->insert($no_invoice, $this->input->post('nm_plg'),$this->input->post('alm_plg'),$this->input->post('kota_plg'),$this->input->post('bayar'),$totalnya,$status_bayar);
+    		$insert_id = $this->minvoice_model->insert($no_invoice, $this->input->post('nm_plg'),$this->input->post('alm_plg'),$this->input->post('kota_plg'),$this->input->post('bayar'),$totalnya,$status_bayar,$this->input->post('id_hargajual1'));
     	}
     	$data = $this->minvoice_model->get_tmp_all();
     	foreach ($data as $row) 

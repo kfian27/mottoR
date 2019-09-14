@@ -42,7 +42,8 @@
       <script type="text/javascript">
         $(document).ready(function () {
           $('select').select2({
-            placeholder: "-- Pilih --"
+            placeholder: "-- Pilih --",
+            width:'100%'
           });
         });
       </script>

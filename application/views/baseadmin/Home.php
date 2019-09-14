@@ -88,59 +88,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="x_panel">
-          <div class="x_content" style="height: 450px;">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-              <div class="x_title">
-                <h2>Prakiraan pridoritas bulan lalu</h2>
-                <div class="clearfix"></div>
-              </div>
-              <ul class="list-unstyled top_profiles scroll-view">
-                <?php $i=1; foreach ($prioritas_lalu as $key=>$value): ?>
-                <li class="media event">
-                  <a class="pull-left border-green profile_thumb">
-                    <div style="font-size: 20pt; color: green; text-align: center;"><?php echo "$i"; $i++ ?></div>
-                  </a>
-                  <div class="media-body">
-                    <?php 
-                    $namanya =  $this->mgudang_model->cek_nama($key);
-                     foreach ($namanya as $row) {?>
-                    <p style="font-size: 12pt"><strong><?php echo $row->name;?> </strong> </p>
-                    <?php }?>
-                  </div>
-                </li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-              <div class="x_title">
-                <h2>Prakiraan pridoritas bulan ini</h2>
-                <div class="clearfix"></div>
-              </div>
-              <ul class="list-unstyled top_profiles scroll-view">
-                <?php $i=1; foreach ($prioritas_skr as $key=>$value): ?>
-                <li class="media event">
-                  <a class="pull-left border-green profile_thumb">
-                    <div style="font-size: 20pt; color: green; text-align: center;"><?php echo "$i"; $i++ ?></div>
-                  </a>
-                  <div class="media-body">
-                    <?php
-                    echo $value; 
-                    $namanya =  $this->mgudang_model->cek_nama($key);
-                     foreach ($namanya as $row) {?>
-                    <p style="font-size: 12pt"><strong><?php echo $row->name;?></strong> </p>
-                    <?php } ?>
-                  </div>
-                </li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
  <?php

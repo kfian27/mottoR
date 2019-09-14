@@ -104,6 +104,7 @@
                   <li><a href="<?php echo base_url();?>master/produk"><i class="fa fa-ticket"></i> Produk</a></li>
                   <li><a href="<?php echo base_url();?>master/cat_produk"><i class="fa fa-tags"></i> Kategori Produk</a></li>
                   <li><a href="<?php echo base_url();?>master/user"><i class="fa fa-user"></i> User</a></li>
+                  <li><a href="<?php echo base_url();?>master/suplier"><i class="fa fa-user"></i> Suplier </a></li>
                   <li><a href="<?php echo base_url();?>master/cabang"><i class="fa fa-building-o"></i> Cabang</a></li>
                   <li><a href="<?php echo base_url();?>master/lvl"><i class="fa fa-users"></i> User level </a></li>
                 </ul>

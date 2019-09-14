@@ -28,10 +28,13 @@ class mproduk_model extends CI_Model {
 		    	$this->db_evin->select('id_cat');
 		    	$this->db_evin->select('nm_produk');
 		    	$this->db_evin->select('stok_produk');
-		    	$this->db_evin->select('harga_produk');
+		    	$this->db_evin->select('beli_produk');
 		    	$this->db_evin->select('ft_produk');
 		    	$this->db_evin->select('up_produk');
 		    	$this->db_evin->select('st_produk');
+		    	$this->db_evin->select('harga_umum');
+		    	$this->db_evin->select('harga_partai');
+		    	$this->db_evin->select('harga_freelance');
 	    	}
             	$this->db_evin->from('produk');
 		}
@@ -62,29 +65,35 @@ class mproduk_model extends CI_Model {
 		 * @author Fian Hidayah
 		 * Fungsi untuk insert data ke tabel survei
 		 */
-		function insert($id_cat=false,$nm_produk=false,$stok_produk=false,$harga_produk=false,$ft_produk=false)
+		function insert($id_cat=false,$nm_produk=false,$stok_produk=false,$beli_produk=false,$ft_produk=false,$harga_umum=false,$harga_partai=false,$harga_freelance=false)
 		{
 			$data = array();
       		$data['id_user']= $this->session->userdata('id');
 			if($id_cat !== false)$data['id_cat'] = trim($id_cat);
 			if($nm_produk !== false)$data['nm_produk'] = trim($nm_produk);
 			if($stok_produk !== false)$data['stok_produk'] = trim($stok_produk);
-			if($harga_produk !== false)$data['harga_produk'] = trim($harga_produk);
+			if($beli_produk !== false)$data['beli_produk'] = trim($beli_produk);
 			if($ft_produk !== false)$data['ft_produk'] = trim($ft_produk);
+			if($harga_umum !== false)$data['harga_umum'] = trim($harga_umum);
+			if($harga_partai !== false)$data['harga_partai'] = trim($harga_partai);
+			if($harga_freelance !== false)$data['harga_freelance'] = trim($harga_freelance);
 			$data['up_produk'] = now();
 			$data['st_produk'] = TERSEDIA;
 			$this->db_evin->insert('produk', $data);
 			return $this->db_evin->insert_id();
 		}
 
-		function update($id_produk=false,$id_cat=false,$nm_produk=false,$harga_produk=false,$ft_produk=false)
+		function update($id_produk=false,$id_cat=false,$nm_produk=false,$beli_produk=false,$ft_produk=false,$harga_umum=false,$harga_partai=false,$harga_freelance=false)
 		{
 			$data = array();
       		$data['id_user']= $this->session->userdata('id');
 			if($id_cat !== false)$data['id_cat'] = trim($id_cat);
 			if($nm_produk !== false)$data['nm_produk'] = trim($nm_produk);
-			if($harga_produk !== false)$data['harga_produk'] = trim($harga_produk);
+			if($beli_produk !== false)$data['beli_produk'] = trim($beli_produk);
 			if($ft_produk !== false)$data['ft_produk'] = trim($ft_produk);
+			if($harga_umum !== false)$data['harga_umum'] = trim($harga_umum);
+			if($harga_partai !== false)$data['harga_partai'] = trim($harga_partai);
+			if($harga_freelance !== false)$data['harga_freelance'] = trim($harga_freelance);
 			$data['up_produk'] = now();;
 
 			return $this->db_evin->update('produk', $data, "id_produk = $id_produk");

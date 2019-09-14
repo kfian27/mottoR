@@ -3,7 +3,7 @@
   <div class="">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Cabang <small>form input </small></h2>
+        <h2> Suplier <small>form input </small></h2>
         <ul class="nav navbar-right panel_toolbox">
           <li><button id="tombol-tambah" class="btn btn-primary" onclick="javascript:tambah();"> Tambah <i class="fa fa-plus"></i></button>
           </li>
@@ -18,20 +18,20 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nama Cabang</th>
-                    <th>Lokasi</th>
+                    <th>Nama Suplier</th>
+                    <th>Alamat</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $a=1; foreach ($cabang_detail as $row): ?>
+                  <?php $a=1; foreach ($suplier_detail as $row): ?>
                 <tr>
                     <td><?php echo $a; ?></td>
-                    <td><?php echo $row->nm_cabang;?></td>
-                    <td><?php echo $row->loc_cabang; $a++; ?></td>
+                    <td><?php echo $row->nm_sup;?></td>
+                    <td><?php echo $row->alm_sup; $a++; ?></td>
                     <td>
-                        <button type="button" data-title='Delete' data-toggle='modal' onclick="javascript:konfirmasi('mcabang/delete/<?php echo $row->id_cabang; ?>');" class="btn btn-danger pull-right"> Hapus</button>
-                        <button type="button" data-title='Edit' onclick="javasript:ubah('mcabang/get_detail/<?php echo $row->id_cabang; ?>')" class="btn btn-primary pull-right"> Edit</button>
+                        <button type="button" data-title='Delete' data-toggle='modal' onclick="javascript:konfirmasi('msuplier/delete/<?php echo $row->id_sup; ?>');" class="btn btn-danger pull-right"> Hapus</button>
+                        <button type="button" data-title='Edit' onclick="javasript:ubah('msuplier/get_detail/<?php echo $row->id_sup; ?>')" class="btn btn-primary pull-right"> Edit</button>
                     </td>
                 </tr>
                   <?php endforeach; ?>
@@ -43,17 +43,17 @@
         <div class="clearfix"></div>
         <div class="row" id="form-tambah" style="display: none;">
         <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
-          <input type="hidden" name="id_cabang" id="id_cabang">
+          <input type="hidden" name="id_sup" id="id_sup">
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Nama Cabang </label>
+              <label for="tiga" class="col-sm-2 control-label"> Nama Suplier </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
-                <input type="text" class="form-control" placeholder="Nama" name="nm_cabang" id="nm_cabang" required>
+                <input type="text" class="form-control" placeholder="Nama" name="nm_sup" id="nm_sup" required>
               </div>
           </div>
            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
               <label for="tiga" class="col-sm-2 control-label"> Lokasi/Alamat </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
-                <input type="text" class="form-control" placeholder="Nama" name="loc_cabang" id="loc_cabang" required>
+                <input type="text" class="form-control" placeholder="Alamat" name="alm_sup" id="alm_sup" required>
               </div>
           </div>
           <div class="ln_solid"></div>
@@ -61,7 +61,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 pull-right">
                   <button class="btn btn-primary" type="button" onclick="javascript:cancel();">Cancel</button>
                   <button class="btn btn-primary" type="reset">Reset</button>
-                  <button type="submit" class="btn btn-success" onclick="javascript:simpan('mcabang/coba_insert');" id="save" name="save">Submit</button>
+                  <button type="submit" class="btn btn-success" onclick="javascript:simpan('msuplier/coba_insert');" id="save" name="save">Submit</button>
                 </div>
               </div>
           </form>
@@ -77,7 +77,9 @@ function tambah(){
     $('#detail').hide();
     $('#form-tambah').show();
     $('#tombol-tambah').attr('disabled',true);
-    $('#nm_cabang').val("");
+    $('#nm_sup').val("");
+    $('#id_sup').val("");
+    $('#alm_sup').val("");
 }
 function cancel(){
     $('#detail').show();
@@ -136,9 +138,9 @@ function ubah(url){
       success : function(data)
       {
           $('#detail').hide();
-          $('#id_cabang').val(data.data.id_cabang);
-          $('#nm_cabang').val(data.data.nm_cabang);
-          $('#loc_cabang').val(data.data.loc_cabang);
+          $('#id_sup').val(data.data.id_sup);
+          $('#nm_sup').val(data.data.nm_sup);
+          $('#alm_sup').val(data.data.alm_sup);
           $('#form-tambah').show();
       },
       error : function(res)

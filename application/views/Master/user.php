@@ -39,8 +39,8 @@
                   <?php $a=1; foreach ($user_detail as $row): ?>
                 <tr>
                     <td><?php echo $a; ?></td>
-                    <td><?php echo $row->id_lvl;?></td>
-                    <td><?php echo $row->id_cabang;?></td>
+                    <td><?php $nama = $this->mlvl_model->get('id_lvl = '.$row->id_lvl); echo $nama[0]->nm_lvl;?></td>
+                    <td><?php $nama = $this->mcabang_model->get('id_cabang ='.$row->id_cabang); echo $nama[0]->nm_cabang;?></td>
                     <td><?php echo $row->username;?></td>
                     <td><?php echo $row->last_user; $a++; ?></td>
                     <td>
@@ -234,7 +234,9 @@ function ubah(url){
             $('#detail').hide();
             // $.fillToForm("#detail-tambah", data.data);
             $('#id_lvl').val(data.data.id_lvl);
+            $('#id_lvl').select2({width:'100%'}).trigger('change');
             $('#id_cabang').val(data.data.id_cabang);
+            $('#id_cabang').select2({width:'100%'}).trigger('change');
             $('#username').val(data.data.username);
             $('#id_user').val(data.data.id_user);
             $('#imagenya').attr("src","<?php echo base_url();?>assets/uploads/profil/"+fotomu);
