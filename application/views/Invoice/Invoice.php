@@ -124,11 +124,11 @@
                 </div>
               </div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kembali">Kembali
-                </label>
+                <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kembali">Kembali
+                </label> -->
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="hidden" id="kembaliHidden" name="kembaliHidden" class="form-control col-md-7 col-xs-12" disabled>
-                  <input type="text" id="kembali" name="kembali" class="form-control col-md-7 col-xs-12" disabled>
+                  <input type="hidden" id="kembali" name="kembali" class="form-control col-md-7 col-xs-12" disabled>
                 </div>
               </div>
               <div class="ln_solid"></div>

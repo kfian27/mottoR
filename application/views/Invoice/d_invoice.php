@@ -1,4 +1,3 @@
-<!-- page content -->
 <?php date_default_timezone_set("asia/jakarta") ?>
 <div class="right_col" role="main">
 <div class="">
@@ -13,7 +12,7 @@
           <div class="row" id="detail">
             <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
               <br>
-              <h2 style="text-decoration: underline; font-weight: bold; font-style: italic;">MOTO RACING</h2>
+              <h2 style="text-decoration: underline; font-weight: bold; font-style: italic;">MOTTO RACING</h2>
               <h2 style="text-decoration: bold;">SURABAYA</h2>
               <H2>031 2739 323</H2>
             </div>
@@ -76,10 +75,10 @@
                       <td colspan="3" style="text-align: center;">Bayar</td>
                       <td><?php echo $bayar;?></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td colspan="3" style="text-align: center;">Kembalian</td>
                       <td><?php echo (int)$bayar - (int)$total_harga;?></td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -117,4 +116,4 @@
       document.body.innerHTML = content;
     } 
   </script>
-  <!-- end page content -->
+  <!-- end page content
